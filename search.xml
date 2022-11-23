@@ -384,11 +384,11 @@
     
     
     <entry>
-      <title>(2022.8.14)三角形</title>
-      <link href="/2022/08/14/%5B2022.10.14%5D%E4%B8%89%E8%A7%92%E5%BD%A2/"/>
-      <url>/2022/08/14/%5B2022.10.14%5D%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
+      <title>(2022.8.14)Java方法</title>
+      <link href="/2022/08/14/%5B2022.10.14%5DJava%E6%96%B9%E6%B3%95/"/>
+      <url>/2022/08/14/%5B2022.10.14%5DJava%E6%96%B9%E6%B3%95/</url>
       
-        <content type="html"><![CDATA[<p>待补充</p>]]></content>
+        <content type="html"><![CDATA[<p>加上static变成类变量</p><pre><code>Java方法是语句的集合，它们在一起执行一个功能。方法是解决一类问题的步骤的有序组合方法包含于类或对象中方法在程序中被创建，在其他地方被引用</code></pre><p>设计方法的原则:方法的本意是功能块，就是实现某个功能的语句块的集合，我们设计方法的时候，最好保持方法的原子性，就是一个方法只完成一个功能，这样有利于我们后期的扩展</p><h5 id="若不是静态类，在调用的时候要将此方法实例化"><a href="#若不是静态类，在调用的时候要将此方法实例化" class="headerlink" title="若不是静态类，在调用的时候要将此方法实例化"></a>若不是静态类，在调用的时候要将此方法实例化</h5><h5 id="若是静态类，则可以直接调用"><a href="#若是静态类，则可以直接调用" class="headerlink" title="若是静态类，则可以直接调用"></a>若是静态类，则可以直接调用</h5>]]></content>
       
       
       <categories>
@@ -403,11 +403,11 @@
     
     
     <entry>
-      <title>(2022.8.14)Java方法</title>
-      <link href="/2022/08/14/%5B2022.10.14%5DJava%E6%96%B9%E6%B3%95/"/>
-      <url>/2022/08/14/%5B2022.10.14%5DJava%E6%96%B9%E6%B3%95/</url>
+      <title>(2022.8.14)三角形</title>
+      <link href="/2022/08/14/%5B2022.10.14%5D%E4%B8%89%E8%A7%92%E5%BD%A2/"/>
+      <url>/2022/08/14/%5B2022.10.14%5D%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
       
-        <content type="html"><![CDATA[<p>加上static变成类变量</p><pre><code>Java方法是语句的集合，它们在一起执行一个功能。方法是解决一类问题的步骤的有序组合方法包含于类或对象中方法在程序中被创建，在其他地方被引用</code></pre><p>设计方法的原则:方法的本意是功能块，就是实现某个功能的语句块的集合，我们设计方法的时候，最好保持方法的原子性，就是一个方法只完成一个功能，这样有利于我们后期的扩展</p><h5 id="若不是静态类，在调用的时候要将此方法实例化"><a href="#若不是静态类，在调用的时候要将此方法实例化" class="headerlink" title="若不是静态类，在调用的时候要将此方法实例化"></a>若不是静态类，在调用的时候要将此方法实例化</h5><h5 id="若是静态类，则可以直接调用"><a href="#若是静态类，则可以直接调用" class="headerlink" title="若是静态类，则可以直接调用"></a>若是静态类，则可以直接调用</h5>]]></content>
+        <content type="html"><![CDATA[<p>待补充</p>]]></content>
       
       
       <categories>
@@ -441,25 +441,6 @@
     
     
     <entry>
-      <title>暂时放着</title>
-      <link href="/2020/10/20/test%20copy%203/"/>
-      <url>/2020/10/20/test%20copy%203/</url>
-      
-        <content type="html"><![CDATA[<p>不知道会更新什么，也许是什么杂谈，模型教程(，一些乱七八糟的东西</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 建设中 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Test</title>
       <link href="/2020/10/20/test%20copy%202/"/>
       <url>/2020/10/20/test%20copy%202/</url>
@@ -470,6 +451,25 @@
       <categories>
           
           <category> JavaWeb </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>暂时放着</title>
+      <link href="/2020/10/20/test%20copy%203/"/>
+      <url>/2020/10/20/test%20copy%203/</url>
+      
+        <content type="html"><![CDATA[<p>不知道会更新什么，也许是什么杂谈，模型教程(，一些乱七八糟的东西</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 建设中 </category>
           
       </categories>
       
