@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>(2022.9.9)进程的并发问题</title>
+      <link href="/2022/09/09/%5B2022.11.9%5D%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/"/>
+      <url>/2022/09/09/%5B2022.11.9%5D%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p>package thread;</p><p>&#x2F;&#x2F;认识并发问题 火车买票</p><p>public class testdemo3 implements Runnable {<br>    private int ecigarette&#x3D;10;<br>    @Override<br>    public void run(){<br>        while (true){<br>            if (ecigarette&lt;&#x3D;0){<br>                break;<br>            }<br>            System.out.println(Thread.currentThread().getName()+”买走了第”+ecigarette–+”根电子烟”);<br>        }</p><pre><code>&#125;</code></pre><p>&#x2F;&#x2F;Class类getName()方法getName()方法在java.lang包中可用。<br>&#x2F;&#x2F;getName()方法用于返回类的名称，接口，原始类型，无效类型以及由此Class对象表示的数组类。</p><p>&#x2F;&#x2F;currentThread()方法<br>&#x2F;&#x2F;currentThread()方法返回正在被执行的线程的信息。</p><pre><code>public static void main(String[] args) &#123;    testdemo3 th=new testdemo3();    new Thread(th,&quot;顶针&quot;).start();    new Thread(th,&quot;尼古丁真&quot;).start();    new Thread(th,&quot;芙蓉王源&quot;).start();&#125;</code></pre><p>}</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 龟兔赛跑</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">package thread;</span><br><span class="line"></span><br><span class="line">public class BuyCigarette implements Runnable&#123;</span><br><span class="line">   @Override</span><br><span class="line">   //计步器</span><br><span class="line">    public void run()&#123;</span><br><span class="line"></span><br><span class="line">       for (int i = 0; i &lt;=100 ; i++) &#123;</span><br><span class="line">           if(Thread.currentThread().getName().equals(&quot;芙蓉王源&quot;))&#123;</span><br><span class="line">               try &#123;</span><br><span class="line">                   Thread.sleep(200);</span><br><span class="line">               &#125; catch (InterruptedException e) &#123;</span><br><span class="line">                   throw new RuntimeException(e);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">        boolean flag=over(i);</span><br><span class="line">           System.out.println(Thread.currentThread().getName()+&quot;跑了&quot;+i+&quot;步&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //判断是否完成</span><br><span class="line">    static String winner;</span><br><span class="line"></span><br><span class="line">  public boolean over(int steps)&#123;</span><br><span class="line">    if(winner!=null)</span><br><span class="line">      return true;</span><br><span class="line">    if (steps&gt;=100)&#123;</span><br><span class="line">        winner=Thread.currentThread().getName();</span><br><span class="line">        System.out.println(winner+&quot;抽到了电子烟&quot;);</span><br><span class="line">        System.exit(1);</span><br><span class="line">    &#125;return false;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        BuyCigarette th=new BuyCigarette();</span><br><span class="line">        new Thread(th,&quot;芙蓉王源&quot;).start();</span><br><span class="line">        new Thread(th,&quot;尼古丁真&quot;).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.9.7)线程</title>
+      <link href="/2022/09/07/%5B2022.11.7%5D%E7%BA%BF%E7%A8%8B/"/>
+      <url>/2022/09/07/%5B2022.11.7%5D%E7%BA%BF%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>线程就是独立的执行路径;<br>在程序运行时，即使没有自己创建线程，后台也会有多个线程，如主线程，gc线程;<br>main()称之为主线程，为系统的入口，用于执行整个程序;<br>在一个进程中，如果开辟了多个线程，线程的运行由调度器安排调度，调度器是与操作系统紧密相关的，先后顺序是不能认为的干预的。<br>对同一份资源操作时，会存在资源抢夺的问题，需要加入并发控制;<br>线程会带来额外的开销，如cpu调度时间，并发控制开销。<br>每个线程在自己的工作内存交互，内存控制不当会造成数据不一致</p><h2 id=""><a href="#" class="headerlink" title=" #"></a> <a href="#">#</a></h2><h2 id="线程的创建有两种方式："><a href="#线程的创建有两种方式：" class="headerlink" title="线程的创建有两种方式：#"></a>线程的创建有两种方式：<a href="#">#</a></h2><p>方式一:继承Thread类，重写run()方法,调用start开启线程</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">testdemo1</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//run方法线程体</span></span><br><span class="line">        System.out.println(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//main线程是主线程</span></span><br><span class="line">        <span class="comment">//创建一个线程对象</span></span><br><span class="line">        testdemo1 demo1=<span class="keyword">new</span> <span class="title class_">testdemo1</span>();</span><br><span class="line">        <span class="comment">//调用start()方法开启线程</span></span><br><span class="line">        demo1.start();</span><br><span class="line">        System.out.println(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里线程的执行顺序并不是按照我们 执行start()的顺序，因为start()方法，并不是代表立即去执行线程，只不过是告诉cpu我可以被调度，至于它先执行哪个线程，要靠cpu去决定。（但是我们可以设置一个优先级，优先级高的显被执行的概率大，但是不是绝对的）</p><p>继承Thread类<br>子类继承Thread类具备多线程能力<br>启动线程:子类对象. start()<br>不建议使用:避免OOP单继承局限性</p><p>方式二:实现Runable接口，重写Run方法，执行线程需要丢入runnable接口实现类，调用start方法。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">testdemo2</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//run方法线程体</span></span><br><span class="line">        System.out.println(<span class="string">&quot;1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//创建runnbale接口的实现类对象</span></span><br><span class="line">     </span><br><span class="line">        testdemo2 demo2=<span class="keyword">new</span> <span class="title class_">testdemo2</span>();</span><br><span class="line">        Thread th=<span class="keyword">new</span> <span class="title class_">Thread</span>(demo2);</span><br><span class="line">        th.start();</span><br><span class="line">        System.out.println(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过Thread的构造方法传入Runnable接口的实现类，然后执行start()方法，开启线程，相对于第一种方式，这里的Thread其实就是个静态代理对象。</p><p>实现Runnable接口<br>实现接口Runnable具有多线程能力<br>启动线程:传入目标对象+Thread对象.start()<br>推荐使用:避免单继承局限性，灵活方便，方便同一个对象被多个线程使用</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.9.2)collection</title>
+      <link href="/2022/09/02/%5B2022.11.2%5Dcollection/"/>
+      <url>/2022/09/02/%5B2022.11.2%5Dcollection/</url>
+      
+        <content type="html"><![CDATA[<h1 id="collection接口"><a href="#collection接口" class="headerlink" title="collection接口"></a>collection接口</h1><h3 id="Java标准库自带的java-util包提供了集合类：Collection，它是除Map外所有其他集合类的根接口。Java的java-util包主要提供了以下三种类型的集合："><a href="#Java标准库自带的java-util包提供了集合类：Collection，它是除Map外所有其他集合类的根接口。Java的java-util包主要提供了以下三种类型的集合：" class="headerlink" title="Java标准库自带的java.util包提供了集合类：Collection，它是除Map外所有其他集合类的根接口。Java的java.util包主要提供了以下三种类型的集合：#"></a>Java标准库自带的<code>java.util</code>包提供了集合类：<code>Collection</code>，它是除<code>Map</code>外所有其他集合类的根接口。Java的<code>java.util</code>包主要提供了以下三种类型的集合：<a href="#">#</a></h3><ul><li><code>List</code>：一种<strong>有序列表</strong>的集合，例如，按索引排列的<code>Student</code>的<code>List</code>；</li><li><code>Set</code>：一种<strong>保证没有重复元素</strong>的集合，例如，所有无重复名称的<code>Student</code>的<code>Set</code>；</li><li><code>Map</code>：一种<strong>通过键值（key-value）查找的映射表</strong>集合，例如，根据<code>Student</code>的<code>name</code>查找对应<code>Student</code>的<code>Map</code>。</li></ul><p>1.单列集合框架结构<br>l—-collection接口:单列集合，用来存储一个一个的对象<br>　　　　&#x2F;—-List接口:存储序的、可重复的数据。–&gt;“动态”数组<br>　　　　　　&#x2F;—-Arraylist、LinkedList、vector</p><p>　　　　&#x2F;—-Set接口:存储无序的、不可重复的数据–&gt;高中讲的*集合”<br>　　　　　　&#x2F;—-HashSet、LinkedHashset、TreeSet</p><p>对应图示:</p><p><a href="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221031212924309-85634725.png"><img src="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221031212924309-85634725.png"></a></p><p><a href="#" title="复制代码"><img src="https://common.cnblogs.com/images/copycode.gif"></a></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/\*</span><br><span class="line">collection接口中声明的方法的测试</span><br><span class="line">向Collection接口的实现类的对象中添加数据obj时，要求obj所在类要重写equals().</span><br><span class="line"></span><br><span class="line"> \*/</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">collectiontst</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">        Collection coll\=<span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">        coll.add(<span class="number">114</span>);</span><br><span class="line">        coll.add(<span class="number">514</span>);</span><br><span class="line">        coll.add(<span class="literal">true</span>);</span><br><span class="line">        coll.add(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="number">15</span>, <span class="string">&quot;mike&quot;</span>));</span><br><span class="line">        <span class="type">boolean</span> conntuon=coll.contains(<span class="number">114</span>);</span><br><span class="line">        System.out.println(conntuon);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><a href="#" title="复制代码"><img src="https://common.cnblogs.com/images/copycode.gif"></a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.31)常用类— 6、JDK8的日期类 7、Math类和Random类 8、枚举类与注解</title>
+      <link href="/2022/08/31/%5B2022.10.31%5D%E5%B8%B8%E7%94%A8%E7%B1%BB%E2%80%94%206%E3%80%81JDK8%E7%9A%84%E6%97%A5%E6%9C%9F%E7%B1%BB%207%E3%80%81Math%E7%B1%BB%E5%92%8CRandom%E7%B1%BB%208%E3%80%81%E6%9E%9A%E4%B8%BE%E7%B1%BB%E4%B8%8E%E6%B3%A8%E8%A7%A3/"/>
+      <url>/2022/08/31/%5B2022.10.31%5D%E5%B8%B8%E7%94%A8%E7%B1%BB%E2%80%94%206%E3%80%81JDK8%E7%9A%84%E6%97%A5%E6%9C%9F%E7%B1%BB%207%E3%80%81Math%E7%B1%BB%E5%92%8CRandom%E7%B1%BB%208%E3%80%81%E6%9E%9A%E4%B8%BE%E7%B1%BB%E4%B8%8E%E6%B3%A8%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://www.bilibili.com/video/BV1Kb411W75N?p=484&vd_source=78421119a4563a7415c84dd650833d12">482.尚硅谷_常用类-JDK8中日期时间API的介绍_哔哩哔哩_bilibili</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.31)集合</title>
+      <link href="/2022/08/31/%5B2022.10.31%5D%E9%9B%86%E5%90%88/"/>
+      <url>/2022/08/31/%5B2022.10.31%5D%E9%9B%86%E5%90%88/</url>
+      
+        <content type="html"><![CDATA[<h1 id="数组与集合"><a href="#数组与集合" class="headerlink" title="数组与集合"></a>数组与集合</h1><h4 id="Java的集合类定义在java-util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。"><a href="#Java的集合类定义在java-util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。" class="headerlink" title="Java的集合类定义在java.util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。#"></a>Java的集合类定义在<code>java.util</code>包中，支持泛型，主要提供了3种集合类，包括<code>List</code>，<code>Set</code>和<code>Map</code>。Java集合使用统一的<code>Iterator</code>遍历，尽量不要使用遗留接口。<a href="#">#</a></h4><p>1．集合与数组存储数据概述:<br>集合、数组都是对多个数据进行存储操作的结构，简称Java容器。<br>说明：此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt,.jpg,.avi，数据库中)<br>2．数组存储的特点：<br>&gt;一旦初始化以后，其长度就确定了。<br>&gt;数组一旦定义好，其元素的类型也就确定了。我们也就只能操作指定类型的数据了。*<br>比如: String[]arr;int[ ]arr1;object[] arr2;<br>3．数组存储的弊端:<br>&gt;—旦初始化以后,其长度就不可修改。<br>&gt;数组中提供的方法非常限，对于添加、删除、插入数据等操作，非常不便，同时效率不高。<br>&gt;获取数组中实际元素的个数的需求，数组没有现成的属性或方法可用<br>&gt;数组存储数据的特点:有序、可重复。对于无序、不可重复的需求，不能满足。</p><p>4．集合存储的优点:<br>解决数组存储数据方面的弊端</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.30)常用类3—StringBuffer与StringBuilder</title>
+      <link href="/2022/08/30/%5B2022.10.30%5D%E5%B8%B8%E7%94%A8%E7%B1%BB3%E2%80%94StringBuffer%E4%B8%8EStringBuilder/"/>
+      <url>/2022/08/30/%5B2022.10.30%5D%E5%B8%B8%E7%94%A8%E7%B1%BB3%E2%80%94StringBuffer%E4%B8%8EStringBuilder/</url>
+      
+        <content type="html"><![CDATA[<h3 id="String-StringBuffer与StringBuilder的异同"><a href="#String-StringBuffer与StringBuilder的异同" class="headerlink" title="String,StringBuffer与StringBuilder的异同#"></a>String,StringBuffer与StringBuilder的异同<a href="#">#</a></h3><p>相同之处：<strong>底层都是char[]存储</strong></p><p>不同之处：</p><p>String：从jdk1.0就有，安全的，不可变的字符序列</p><p>StringBuffer：从jdk1.0就有，可变的字符序列，线程安全，效率低</p><p>StringBuilder：jdk5.0才加入，可变的字符序列，线程不安全，效率高</p><p>效率比较：string&lt;stringbuffer&lt;stringbuilder</p><h3 id="StringBuffer类可以创建可修改的字符串序列。该类有StringBuffer-StringBuffer-int-size-StringBuffer-String-s-三个改造方法。"><a href="#StringBuffer类可以创建可修改的字符串序列。该类有StringBuffer-StringBuffer-int-size-StringBuffer-String-s-三个改造方法。" class="headerlink" title="StringBuffer类可以创建可修改的字符串序列。该类有StringBuffer(),StringBuffer(int size),StringBuffer(String s)三个改造方法。#"></a>StringBuffer类可以创建可修改的字符串序列。该类有StringBuffer(),StringBuffer(int size),StringBuffer(String s)三个改造方法。<a href="#">#</a></h3><p>1.StringBuffer()的<strong>初始容量可以容纳16个字符</strong>，当该对象的实体存放的字符的长度大于16时，实体容量就自动增加。StringBuffer对象可以通过length()方法获取实体中存放的字符序列长度，通过capacity()方法来获取当前实体的实际容量。</p><p>2.StringBuffer(int size)可以指定分配给该对象的实体的初始容量参数为参数size指定的字符个数。当该对象的实体存放的字符序列的长度大于size个字符时，实体的容量就自动的增加。以便存放所增加的字符。</p><p>3.StringBuffer(String s)可以指定给对象的实体的初始容量为参数字符串s的长度额外再加16个字符。当该对象的实体存放的字符序列长度大于size个字符时，实体的容量自动的增加，以便存放所增加的字符。</p><h3 id="StringBuffer的常用方法"><a href="#StringBuffer的常用方法" class="headerlink" title="StringBuffer的常用方法#"></a>StringBuffer的常用方法<a href="#">#</a></h3><p><a href="http://t.csdn.cn/xJCyJ">https://blog.csdn.net/qq_35868412&#x2F;article&#x2F;details&#x2F;78153185?biz_id&#x3D;102&amp;utm_term&#x3D;Stringbuffer%E6%96%B9%E6%B3%95&amp;utm_medium&#x3D;distribute.pc_search_result.none-task-blog-2<del>all</del>sobaiduweb~default-0-78153185&amp;spm&#x3D;1018.2118.3001.4187</a></p><h3 id="StringBuilder的常用方法"><a href="#StringBuilder的常用方法" class="headerlink" title="StringBuilder的常用方法#"></a>StringBuilder的常用方法<a href="#">#</a></h3><p><a href="https://blog.csdn.net/qq/32279165/article/details/111040044">https://blog.csdn.net/qq/32279165/article/details/111040044</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.30)常用类5—Calender类</title>
+      <link href="/2022/08/30/%5B2022.10.30%5D%E5%B8%B8%E7%94%A8%E7%B1%BB5%E2%80%94Calender%E7%B1%BB/"/>
+      <url>/2022/08/30/%5B2022.10.30%5D%E5%B8%B8%E7%94%A8%E7%B1%BB5%E2%80%94Calender%E7%B1%BB/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Calendar是一个抽象基类，主用用于完成日期字段之间相互操作的功能。"><a href="#Calendar是一个抽象基类，主用用于完成日期字段之间相互操作的功能。" class="headerlink" title="Calendar是一个抽象基类，主用用于完成日期字段之间相互操作的功能。#"></a>Calendar是一个抽象基类，主用用于完成日期字段之间相互操作的功能。<a href="#">#</a></h2><p>获取Calendar实例的方法<br>使用<strong>Calendar.getInstance()<strong>方法<br>调用它的子类</strong>GregorianCalendar</strong>的构造器。  </p><p>一个Calendar的实例是系统时间的抽象表示，通过**get(int field)**方法来取得想要的时间信息。</p><p>比如YEAR、MONTH、DAY_OF_WEEK、HOUR_OF_DAY 、MINUTE、SECOND<br>public void set(int field,int value)</p><p>public void add(int field, int amount)</p><p>public final Date getTime()<br>public final void setTime(Date date)</p><p>注意:<br>获取月份时:一月是0，二月是1，以此类推，12月是11<br>获取星期时:周日是1，周二是2，。。。。周六是7</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">calendartest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//1.实例化</span></span><br><span class="line">        <span class="comment">//方式一：创建其子类GregorianCalender的对象</span></span><br><span class="line">        <span class="comment">//方式二：调用其静态方法getInstance()</span></span><br><span class="line"></span><br><span class="line">        Calendar calendar=Calendar.getInstance();</span><br><span class="line">        System.out.println(calendar);</span><br><span class="line">        <span class="comment">//2.常用方法</span></span><br><span class="line">        <span class="comment">//get()</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">days</span> <span class="operator">=</span> calendar.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">        System.out.println(days);</span><br><span class="line">        <span class="comment">//set();</span></span><br><span class="line">        calendar.set(Calendar.DAY_OF_MONTH, <span class="number">11</span>);</span><br><span class="line">        days=calendar.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">        System.out.println(days);</span><br><span class="line">        <span class="comment">//add()</span></span><br><span class="line">        calendar.add(Calendar.DAY_OF_MONTH,<span class="number">11</span>);</span><br><span class="line">        days=calendar.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">        System.out.println(days);</span><br><span class="line">        <span class="comment">//getTime( ):日历类---&gt; Date</span></span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> calendar.getTime();</span><br><span class="line">        System.out.println(date);</span><br><span class="line">        <span class="comment">// setTime( ):Date ---&gt;日历类</span></span><br><span class="line">        <span class="type">Date</span> <span class="variable">date1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">        calendar.setTime(date1);</span><br><span class="line">        days=calendar.get(Calendar.DAY_OF_MONTH);</span><br><span class="line">        System.out.println(days);</span><br><span class="line">     </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.30)常用类4—Date与DateFormat</title>
+      <link href="/2022/08/30/%5B2022.10.30%5D%E5%B8%B8%E7%94%A8%E7%B1%BB4%E2%80%94Date%E4%B8%8EDateFormat/"/>
+      <url>/2022/08/30/%5B2022.10.30%5D%E5%B8%B8%E7%94%A8%E7%B1%BB4%E2%80%94Date%E4%B8%8EDateFormat/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-java-lang-System类"><a href="#1-java-lang-System类" class="headerlink" title="1. java.lang.System类#"></a>1. java.lang.System类<a href="#">#</a></h2><p>System类提供的public static long currentTimeqMillis()用来返回当前时间与1970年1月1日0时0分0秒之间以毫秒为单位的时间差。<br>&gt;此方法适于计算时间差。</p><h2 id="2-java-util-Date类"><a href="#2-java-util-Date类" class="headerlink" title="2.java.util.Date类#"></a>2.java.util.Date类<a href="#">#</a></h2><p>表示特定的瞬间，精确到毫秒</p><p>构造器:<br>&gt;Date():使用无参构造器创建的对象可以获取本地当前时间。</p><p>&gt;Date(long date)<br>常用方法<br>getTime():返回自1970年1月1日 00:00:00 GMT以来此Date对象<br>表示的毫秒数。<br>toString():把此 Date 对象转换为以下形式的String:dow mon dd hh:mm:ss zzz yyyy</p><p>其中: dow是一周中的某一天(Sun, Mon，Tue,wed，Thu,Fri,Sat)，zzz是时间标准。<br>其它很多方法都过时了。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   1.用system类中的currentTimeMillis()方法</span></span><br><span class="line"><span class="comment">   2.java.util.Date类</span></span><br><span class="line"><span class="comment">           1）两个构造器的使用</span></span><br><span class="line"><span class="comment">               (1)构造器1:Date()</span></span><br><span class="line"><span class="comment">               (2)构造器2:创建指定毫秒数的Date对象</span></span><br><span class="line"><span class="comment">           2）两个方法的使用</span></span><br><span class="line"><span class="comment">               (1)方法一：toString():显示当前的年月日时分秒</span></span><br><span class="line"><span class="comment">               (2)方法二：getTime():获取当前Date对象对应的毫秒数（时间戳）</span></span><br><span class="line"><span class="comment">    3.java.sql.Date数据库专用，对着数据库中的日期类型的变量</span></span><br><span class="line"><span class="comment">            1)如何实例化？</span></span><br><span class="line"><span class="comment">            java.sq1.Date date3 = new java.sq1.Date(3523532534L);</span></span><br><span class="line"><span class="comment">            System.out.print1n(date3);</span></span><br><span class="line"><span class="comment">            2)如何将util.Date对象转化为sql.Date</span></span><br><span class="line"><span class="comment">                    情况一:</span></span><br><span class="line"><span class="comment">                    Date date4 = new java.sqL.Date(2343243242323L);</span></span><br><span class="line"><span class="comment">                    java.sqL.Date date5 = (java.sqL.Date) date4;</span></span><br><span class="line"><span class="comment">                    情况二:</span></span><br><span class="line"><span class="comment">                    Date date6 = new Date();</span></span><br><span class="line"><span class="comment">                    java.sq1.Date date7 = new java.sq1.Date(date6.getTime());</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">datatimetest</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">long</span> time=System.currentTimeMillis();</span><br><span class="line">    System.out.println(time);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">()</span>&#123;</span><br><span class="line">    Date date1=<span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">    System.out.println(date1);</span><br><span class="line">    System.out.println(date1.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="3-java-text-SimpleDateFormat类"><a href="#3-java-text-SimpleDateFormat类" class="headerlink" title="3.java.text.SimpleDateFormat类#"></a>3.java.text.SimpleDateFormat类<a href="#">#</a></h2><p>Date类的API不易于国际化，大部分被废弃了，java.text.SimpleDateFormat类是一个不与语言环境有关的方式来格式化和解析日期的具体类。<br>它允许进行<strong>格式化:日期→文本、解析:文本→日期</strong><br><strong><em>格式化:</em></strong><br>SimpleDateFormat() :默认的模式和语言环境创建对象<br>public SimpleDateFormat(String pattern):该构造方法可以用<strong>参数pattern</strong>指定的格式创建一个对象，该对象调用:<br>public String format(Date date):方法格式化时间对象date</p><p><strong><em>解析:</em></strong><br>public Date parse(String source):从给定字符串的开始解析文本，以生成一个日期。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class simpedate &#123;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line">public void testSimpleDateFormat() throws ParseException &#123;</span><br><span class="line">    //实例化SimpleDateFormat()</span><br><span class="line">    SimpleDateFormat sdf=new SimpleDateFormat();</span><br><span class="line">    //格式化：日期---&gt;字符串</span><br><span class="line">    Date date=new Date();</span><br><span class="line">    //System.out.println(date);</span><br><span class="line">    String format=sdf.format(date);</span><br><span class="line">    System.out.println(format);</span><br><span class="line">    //解析：格式化的逆过程 字符串---&gt;日期</span><br><span class="line">    String str= &quot;2022/10/30 下午6:58&quot;;</span><br><span class="line">    Date date1 = sdf.parse(str);</span><br><span class="line">    System.out.println(date1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.29)常用类2—基本数据类型和包装类</title>
+      <link href="/2022/08/29/%5B2022.10.29%5D%E5%B8%B8%E7%94%A8%E7%B1%BB2%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/"/>
+      <url>/2022/08/29/%5B2022.10.29%5D%E5%B8%B8%E7%94%A8%E7%B1%BB2%E2%80%94%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/</url>
+      
+        <content type="html"><![CDATA[<p>Java提供了八种基本数据类型：byte、short、int、long、float、double、<a href="https://so.csdn.net/so/search?q=boolean&spm=1001.2101.3001.7020">boolean</a>、char，每种基本类型都有其对应的类</p><p>基本数据类型</p><p>对应包装类</p><p><img src="C:\Users\1\AppData\Roaming\Typora\typora-user-images\image-20221123141421951.png" alt="image-20221123141421951"></p><p>可以看到两者命名的区别：基本数据类型首字母都是小写，而对应的包装类首字母都是大写（Java命名习惯，类名首字母需要大写），并且采用全称（缩写int变成了全称Integer）。</p><p>以上8种类都是immutable的，和String类一样，意味着实例一旦创建完成后，就不能改变其成员变量值。</p><h3 id="包装类与基本数据类型的区别"><a href="#包装类与基本数据类型的区别" class="headerlink" title="包装类与基本数据类型的区别#"></a>包装类与基本数据类型的区别<a href="#">#</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）包装类是对象，而基本数据类型不是。</span><br><span class="line"></span><br><span class="line">包装类的引用存放在栈中，实例存放在堆中；而基本数据类型直接存放在栈中。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）包装类需要先初始化再赋值，而基本数据类型可以直接赋值。</span><br><span class="line"></span><br><span class="line"><span class="comment">//包装类与基本数据类型的初始化举例</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">114514</span>);<span class="comment">//需要先用new初始化</span></span><br><span class="line"><span class="type">int</span> <span class="variable">n2</span> <span class="operator">=</span> <span class="number">114514</span>;<span class="comment">//可以直接赋值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//String的初始化有两种方法，举例</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;abc&quot;</span>)</span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;abc&quot;</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.25)常用类1—String</title>
+      <link href="/2022/08/25/%5B2022.10.25%5D%E5%B8%B8%E7%94%A8%E7%B1%BB1%E2%80%94String/"/>
+      <url>/2022/08/25/%5B2022.10.25%5D%E5%B8%B8%E7%94%A8%E7%B1%BB1%E2%80%94String/</url>
+      
+        <content type="html"><![CDATA[<h3 id="string-字符串，使用一对”-“引起来表示。"><a href="#string-字符串，使用一对”-“引起来表示。" class="headerlink" title="string:字符串，使用一对” “引起来表示。#"></a>string:字符串，使用一对” “引起来表示。<a href="#">#</a></h3><p>1.String声明为final的，不可被继承<br>2.String实现了Serializable接口:表示字符串是支持序列化的。<br>实现了Comparable接口:表示String可以比较大小<br>3.String内部定义了final char[ ] value用于存储字符串数据<br>4.通过字面量的方式(区别于new给一个字符串赋值，此时的字符串值声明在字符串常量池中。</p><p>5.字符串常量池中是不会存储相同内容的字符串的。</p><h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>String与基本数据类型、包装类之间的转换。<a href="#">#</a></p><p>String –&gt;基本数据类型、包装类:调用包装类的静态方法: parseXxx(str)基本数据类型、包装类–&gt; string:调用string重载的vaLueof( xxx)</p><h3 id="string-与char-之间的转换"><a href="#string-与char-之间的转换" class="headerlink" title="string 与char[]之间的转换#"></a>string 与char[]之间的转换<a href="#">#</a></h3><p>String –&gt; char[]:调用string的toCharArray( )<br>char[] –&gt; string:调用string的构造器</p><h3 id="string-与byte-之间的转换"><a href="#string-与byte-之间的转换" class="headerlink" title="string 与byte[]之间的转换#"></a>string 与byte[]之间的转换<a href="#">#</a></h3><p>String –&gt; byte[]:调用string 的getBytes( )<br>&#x2F;&#x2F;为UTF8编码<br>String str &#x3D; “hello java”;<br>byte[] bytes&#x3D;str.getBytes(“UTF8”);<br>byte[]–&gt; string<br>String srt2&#x3D;new String(bytes,”UTF-8”);</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.23)String的不可变性</title>
+      <link href="/2022/08/23/%5B2022.10.23%5DString%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7/"/>
+      <url>/2022/08/23/%5B2022.10.23%5DString%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7/</url>
+      
+        <content type="html"><![CDATA[<h3 id="final关键字代表最终、不可改变的"><a href="#final关键字代表最终、不可改变的" class="headerlink" title="final关键字代表最终、不可改变的#"></a>final关键字代表最终、不可改变的<a href="#">#</a></h3><p>常见四种用法：</p><p>1. 可以用来修饰一个类（不能有任何子类）</p><p>2. 可以用来修饰一个方法（最终方法，不能被覆盖重写）</p><p>3. 还可以用来修饰一个局部变量</p><p>（对于基本类型来说，不可变说的是变量当中的数据不可改变</p><p>对于引用类型来说，不可变说的是变量当中的地址值不可改变）</p><p>4. 还可以用来修饰一个成员变量</p><p>成员变量具有默认值，所以用了final之后必须手动赋值，不会再给默认值。</p><p>对于final的成员变量，要么使用直接赋值，要么通过构造方法赋值。</p><p>string是一个final类，代表不可变的字符序列</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string类的使用</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">stringtest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span>&#123;</span><br><span class="line">        String s1=<span class="string">&quot;abc&quot;</span>;</span><br><span class="line">        String s2=<span class="string">&quot;abc&quot;</span>;</span><br><span class="line">        s1=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line"></span><br><span class="line">​    System.out.println(s1);<span class="comment">//abc</span></span><br><span class="line">​    System.out.println(s2);<span class="comment">//hello</span></span><br><span class="line"></span><br><span class="line">​    System.out.println(<span class="string">&quot;*****************&quot;</span>);</span><br><span class="line"></span><br><span class="line">​    String s3=<span class="string">&quot;abc&quot;</span>;</span><br><span class="line">​    s3+=<span class="string">&quot;def&quot;</span>;</span><br><span class="line">​    System.out.println(s3);<span class="comment">//abcdef</span></span><br><span class="line">​    System.out.println(s2);</span><br><span class="line">​    System.out.println(<span class="string">&quot;*****************&quot;</span>);</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>(<a href="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221023214934230-640401228.png">https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221023214934230-640401228.png</a>)</p><p>(<a href="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221023214947576-549850338.png">https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221023214947576-549850338.png</a>)</p><p>暂时代替</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.11)Java的变量</title>
+      <link href="/2022/08/20/%5B2022.10.11%5DJava%E7%9A%84%E5%8F%98%E9%87%8F/"/>
+      <url>/2022/08/20/%5B2022.10.11%5DJava%E7%9A%84%E5%8F%98%E9%87%8F/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> f=<span class="number">0.1f</span>;</span><br><span class="line"><span class="type">double</span> d=<span class="number">1.0</span>/<span class="number">10</span>;</span><br><span class="line">f==d <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="type">float</span> d1=<span class="number">12312312313123123123123123f</span>;</span><br><span class="line"><span class="type">float</span> d2=d1+<span class="number">1</span>;</span><br><span class="line">d1==d2 <span class="literal">true</span></span><br></pre></td></tr></table></figure><p><strong>浮点数是有误差的</strong>，尽量避免使用浮点数进行比较，金额应该用BigDecimal来表示</p><p>浮点型在计算机中，先将小数表示为2进制数，再将二进制用科学计数法来表示。</p><p>浮点型的内存结构分为3各部分，正负号，指数，尾数。<br>指数决定浮点型的取值范围，尾数决定浮点型的精度。<br>当数据太大导致计算溢出前可以先强制转化为Long类型，谁大听谁</p><p>Java的变量有三种类型：<strong>类变量，实例变量，局部变量</strong></p><p>类变量有static修饰，独立于方法之外</p><p>实例变量没有static,独立于方法之外</p><p>局部变量在方法之中</p><p><strong>实例变量的使用需要先实例化</strong>(new)</p><p>static可以不需要实例化对象就可以访问类中的属性和方法，所以学java的时候都用static修饰成员变量（？</p><p>局部变量不能使用static</p><p>实例变量具有默认值。数值型变量的默认值是0，布尔型变量的默认值是false，引用类型变量的默认值是null。</p><p><strong>字符串连接符</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String\[\] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> a=<span class="number">10</span>;</span><br><span class="line">        <span class="type">int</span> b=<span class="number">20</span>;</span><br><span class="line">        <span class="comment">//字符串连接+</span></span><br><span class="line">        System.out.println(a+b);</span><br><span class="line">        System.out.println(<span class="string">&quot;&quot;</span>+a+b);</span><br><span class="line">        System.out.println(a+b+<span class="string">&quot;&quot;</span>);</span><br><span class="line"><span class="comment">//为什么？输出 30 1020 30</span></span><br><span class="line"><span class="comment">// 如果字符串连接符两侧有一方出现string类型 那么+会把其他的操作数转化为string类型进行连接</span></span><br><span class="line"><span class="comment">// 字符串在前面 那就将右边变为string进行连接，字符串在后面，前面还是照常运算</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.20)抽象类 异常等</title>
+      <link href="/2022/08/20/%5B2022.10.20%5D%E6%8A%BD%E8%B1%A1%E7%B1%BB%20%E5%BC%82%E5%B8%B8%E7%AD%89/"/>
+      <url>/2022/08/20/%5B2022.10.20%5D%E6%8A%BD%E8%B1%A1%E7%B1%BB%20%E5%BC%82%E5%B8%B8%E7%AD%89/</url>
+      
+        <content type="html"><![CDATA[<h3 id="抽象类的作用"><a href="#抽象类的作用" class="headerlink" title="抽象类的作用"></a>抽象类的作用</h3><ol><li>作为约束</li><li>定义一些方法，用于让不同的人实现</li><li>public abstract</li><li>public static final</li><li>接口不能被实例化，接口中没有构造方法</li><li>implements可以实现多个接口</li><li>必须要重写接口中的放法</li></ol><h3 id="异常的分类"><a href="#异常的分类" class="headerlink" title="异常的分类"></a>异常的分类</h3><p><img src="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221021163247909-2127714278.png" alt="img"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.20)Java常用类</title>
+      <link href="/2022/08/20/%5B2022.10.20%5DJava%E5%B8%B8%E7%94%A8%E7%B1%BB/"/>
+      <url>/2022/08/20/%5B2022.10.20%5DJava%E5%B8%B8%E7%94%A8%E7%B1%BB/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1、包装类"><a href="#1、包装类" class="headerlink" title="1、包装类"></a>1、包装类</h2><h2 id="2、String类"><a href="#2、String类" class="headerlink" title="2、String类"></a>2、String类</h2><h2 id="3、StringBuffer和StringBuilder类"><a href="#3、StringBuffer和StringBuilder类" class="headerlink" title="3、StringBuffer和StringBuilder类"></a>3、StringBuffer和StringBuilder类</h2><h2 id="4、Date类和DateFormat类"><a href="#4、Date类和DateFormat类" class="headerlink" title="4、Date类和DateFormat类"></a>4、Date类和DateFormat类</h2><h2 id="5、Calender类日期类"><a href="#5、Calender类日期类" class="headerlink" title="5、Calender类日期类"></a>5、Calender类日期类</h2><h2 id="6、JDK8的日期类"><a href="#6、JDK8的日期类" class="headerlink" title="6、JDK8的日期类"></a>6、JDK8的日期类</h2><h2 id="7、Math类和Random类"><a href="#7、Math类和Random类" class="headerlink" title="7、Math类和Random类"></a>7、Math类和Random类</h2><h2 id="8、枚举"><a href="#8、枚举" class="headerlink" title="8、枚举"></a>8、枚举</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.18)封装，继承，多态</title>
+      <link href="/2022/08/18/%5B2022.10.18%5D%E5%B0%81%E8%A3%85%EF%BC%8C%E7%BB%A7%E6%89%BF%EF%BC%8C%E5%A4%9A%E6%80%81/"/>
+      <url>/2022/08/18/%5B2022.10.18%5D%E5%B0%81%E8%A3%85%EF%BC%8C%E7%BB%A7%E6%89%BF%EF%BC%8C%E5%A4%9A%E6%80%81/</url>
+      
+        <content type="html"><![CDATA[<h2 id="封装是指一种将抽象性函式接口的实现细节部分包装、隐藏起来的方法。"><a href="#封装是指一种将抽象性函式接口的实现细节部分包装、隐藏起来的方法。" class="headerlink" title="封装是指一种将抽象性函式接口的实现细节部分包装、隐藏起来的方法。#"></a><strong>封装是指一种将抽象性函式接口的实现细节部分包装、隐藏起来的方法。</strong><a href="#">#</a></h2><p>封装可以被认为是一个保护屏障，防止该类的代码和数据被外部类定义的代码随机访问。</p><p>要访问该类的代码和数据，必须通过严格的接口控制</p><p><strong>封装的作用：</strong>提高程序的安全性，保护数据 2.隐藏代码的细节 3.统一接口 4.提高维护性</p><p>🥦</p><h2 id="继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。"><a href="#继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。" class="headerlink" title="继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。#"></a><strong>继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。</strong><a href="#">#</a></h2><p>1.子类拥有父类非 private 的属性、方法。</p><p>2.子类可以拥有自己的属性和方法，即子类可以对父类进行扩展。</p><p>3.子类可以用自己的方式实现父类的方法。</p><p>4.Java 的继承是单继承，但是可以多重继承，单继承就是一个子类只能继承一个父类，多重继承就是，例如 B 类继承 A 类，C 类继承 B 类，所以按照关系就是 B 类是 C 类的父类，A 类是 B 类的父类，这是 Java 继承区别于 C++ 继承的一个特性。</p><p>5.提高了类之间的耦合性（继承的缺点，耦合度高就会造成代码之间的联系越紧密，代码独立性越差）。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ctrl+h快捷键可以打开idea的继承树</span><br><span class="line"><span class="number">1.</span>Java中 所有的类都默认直接或间接继承object类</span><br><span class="line"><span class="number">2.</span>Java只能单继承 一个子类只能有一个父类</span><br><span class="line"><span class="number">3.</span>私有类不能被继承</span><br></pre></td></tr></table></figure><p>🥦</p><h2 id="多态是同一个行为具有多个不同表现形式或形态的能力。"><a href="#多态是同一个行为具有多个不同表现形式或形态的能力。" class="headerlink" title="多态是同一个行为具有多个不同表现形式或形态的能力。"></a><strong>多态是同一个行为具有多个不同表现形式或形态的能力。</strong></h2><h2 id="多态就是同一个接口，使用不同的实例而执行不同操作"><a href="#多态就是同一个接口，使用不同的实例而执行不同操作" class="headerlink" title="多态就是同一个接口，使用不同的实例而执行不同操作"></a><strong>多态就是同一个接口，使用不同的实例而执行不同操作</strong></h2><p>多态注意事项:<br>1.多态是方法的多态，属性没有多态<br>2.父类和子类，有联系类型转换异常 classCastException<br>3.存在条件:1.继承关系，2.方法需要重写，3.父类引用指向子类对象 Father p &#x3D; new Son( );<br>🥦</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">super与this</span><br><span class="line"></span><br><span class="line">super注意点</span><br><span class="line">1.super调用父类的构造方法，必须在构造方法的第一个</span><br><span class="line">2.super必须出现在子类的方法或者构造方法中</span><br><span class="line">3.super和this不能同时调用构造方法</span><br><span class="line"></span><br><span class="line">和this相比</span><br><span class="line"></span><br><span class="line">代表的对象不同：</span><br><span class="line">this：本身调用者这个对象</span><br><span class="line">super:代表父类对象的应用</span><br><span class="line">前提：</span><br><span class="line">this:没有继承也可以使用</span><br><span class="line">super 只能在继承条件才可以使用</span><br><span class="line">构造方法：</span><br><span class="line">this()：本类的构造</span><br><span class="line">super():父类的构造</span><br></pre></td></tr></table></figure><p><strong>🥦</strong></p><h2 id="构造器就是构造方法"><a href="#构造器就是构造方法" class="headerlink" title="构造器就是构造方法#"></a><strong>构造器就是构造方法</strong><a href="#">#</a></h2><p>类中的构造器也称为构造方法，是在进行创建对象的时候必须要调用的。并且构造器有以下两个特点:<br>1.必须和类的名字相同<br>2.必须没有返回类型,也不能写void</p><p>构造器：<br>1.和类名相同<br>2.没有返回值<br>作用：<br>1.new 本质是在调用构造方法<br>2.初始化对象的值<br>注意点：<br>1.定义有参构造后，如果想使用无参构造，显式的定义一个无参的构造</p><p>alt+insert快捷键生成构造器（idea）</p><p>构造器</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">constructor01</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span>  <span class="title class_">Person</span>&#123;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    String name;</span><br><span class="line"></span><br><span class="line"><span class="comment">//无参构造。</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Person</span><span class="params">()</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;这是无参构造！&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//有参构造。</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(<span class="type">int</span> pAge)</span>&#123;</span><br><span class="line">    age=pAge;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String pname,<span class="type">int</span> pAge)</span>&#123;</span><br><span class="line">    name =pname;</span><br><span class="line">    age=pAge;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>构造器最大的用处就是在创建对象时执行初始化，当创建一个对象时，系统会为这个对象的实例进行默认的初始化。如果想改变这种默认的初始化，就可以通过自定义构造器来实现。</p><p>构造器可以提供许多特殊的方法，构造器作为一种方法，负责类中成员变量（域）的初始化。</p><p>🥦</p><h2 id="重写：需要有继承关系，子类重写父类的方法"><a href="#重写：需要有继承关系，子类重写父类的方法" class="headerlink" title="重写：需要有继承关系，子类重写父类的方法#"></a><strong>重写：需要有继承关系，子类重写父类的方法</strong><a href="#">#</a></h2><p>重写也称覆盖<br>1.方法名必须相同<br>2.参数列表必须相同<br>3.修饰符：范围可以扩大但不能缩小 public&gt;protected&gt;default&gt;private<br>4.抛出的异常：范围可以被缩小，但不能扩大：ClassNotFoundException–&gt;Exception()<br>重写 子类的方法和父类必须要一致，方法体不同<br>为什么需要重写：<br>父类的功能，子类不一定需要，或者不一定满足</p><p>重写与重载：<a href="https://www.runoob.com/java/java-override-overload.html">https://www.runoob.com/java/java-override-overload.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.17)数组的一点补充</title>
+      <link href="/2022/08/17/%5B2022.10.17%5D%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%80%E7%82%B9%E8%A1%A5%E5%85%85/"/>
+      <url>/2022/08/17/%5B2022.10.17%5D%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%80%E7%82%B9%E8%A1%A5%E5%85%85/</url>
+      
+        <content type="html"><![CDATA[<p><strong>Arrays.toString( )</strong></p><p>作用：方便地输出数组。<br>这个方法是是用来将数组转换成String类型输出的，入参可以是long，float，double，int，boolean，byte，object<br>型的数组。</p><p>如果使用i.toString()则是输出地址值</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.phantomcarrot.array;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">maopao</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> i=<span class="number">1</span>;</span><br><span class="line">        Scanner scanner=<span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        i=scanner.nextInt();</span><br><span class="line">        <span class="type">int</span>[] num = <span class="keyword">new</span> <span class="title class_">int</span>[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">            num[j]=scanner.nextInt();</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">​    System.out.println(Arrays.toString(mao(num)));<span class="comment">//toString()的使用</span></span><br><span class="line">​    scanner.close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] mao(<span class="type">int</span>[] arrays) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arrays.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arrays.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arrays[j] &gt; arrays[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                temp = arrays[j];</span><br><span class="line">                arrays[j] = arrays[j + <span class="number">1</span>];</span><br><span class="line">                arrays[j + <span class="number">1</span>] = temp;</span><br><span class="line"></span><br><span class="line">​            &#125;</span><br><span class="line">​        &#125;</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="keyword">return</span> arrays;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//简单的动态输入数组冒泡排序算法</span></span><br></pre></td></tr></table></figure><p><strong>for-each循环（增强型for循环）</strong></p><p>增强的for循环是在传统的for循环中增加的强大的迭代功能的循环，是在jdk1.5之后提出来的，主要是为了提高程序员的开发工作效率。</p><p>&#x2F;*格式：<br>for(元素类型 ele : 数组名&#x2F;Iterable 实例){</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#125;*/</span><br><span class="line"></span><br><span class="line"><span class="comment">//foreach遍历数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foreach01</span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">          <span class="comment">//创建一个String数组</span></span><br><span class="line">                String[] line=<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;1111&quot;</span>,<span class="string">&quot;22222&quot;</span>,<span class="string">&quot;33333&quot;</span>&#125;;</span><br><span class="line">                <span class="keyword">for</span>(String string:line)&#123;<span class="comment">//遍历</span></span><br><span class="line">                    System.out.println(<span class="string">&quot;string=&quot;</span>+string);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>稀疏数组</strong></p><p>1.当一个数组中大部分元素为0，或者为同一个值的数组时，可以使用稀疏数组来保存该数组。</p><p>2.稀疏数组的处理方法： ①记录数组一共有几行几列，有多少个不同的值 ②把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.17)面向对象之类与对象</title>
+      <link href="/2022/08/17/%5B2022.10.17%5D%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/"/>
+      <url>/2022/08/17/%5B2022.10.17%5D%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/</url>
+      
+        <content type="html"><![CDATA[<p><strong>面向对象编程的本质就是：以类的方式组织代码，以对象的组织（封装）技术</strong></p><p><strong>方法有两种调用方式</strong></p><p>1.通过创建主函数的对象来调用方法<br>2.通过把 “static” 修饰符把方法可以直接调用函数</p><p><strong>类里面只能有属性和方法</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//学生类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    String name;</span><br><span class="line"><span class="comment">//属性</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Study</span><span class="params">()</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;学习中&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类里面只能有属性和方法</span></span><br></pre></td></tr></table></figure><p><strong>类与对象小结</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">1.类与对象</span><br><span class="line">    类是一个模板：抽象，对象是一个具体的实例</span><br><span class="line">2.方法</span><br><span class="line">    定义和调用</span><br><span class="line">3.对象的引用</span><br><span class="line">    引用类型：八大基本类型 整型的（byte、short、int、long；字符型的char；浮点型的float、double；布尔型的boolean）</span><br><span class="line">    对象是通过引用来操作的：栈---&gt;堆</span><br><span class="line">对象是通过</span><br><span class="line">4.属性：字段（field） （成员变量）</span><br><span class="line">    默认初始化：</span><br><span class="line">    数字0 0.0</span><br><span class="line">    char:u000</span><br><span class="line">    boolean:false</span><br><span class="line">引用：null</span><br><span class="line">5.对象的创建和使用</span><br><span class="line">    1）必须使用new关键字创造对象，构造器 Person per=new Person</span><br><span class="line">    2)对象的属性 per.name</span><br><span class="line">    3)对象的方法 per.sleep()</span><br><span class="line">6.类：</span><br><span class="line">    静态的属性 （属性）</span><br><span class="line">    动态的行为 （方法）</span><br><span class="line"></span><br><span class="line">[![](https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221018172029662-921543149.gif)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.16)数组的初始化</title>
+      <link href="/2022/08/16/%5B2022.10.16%5D%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/"/>
+      <url>/2022/08/16/%5B2022.10.16%5D%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
+      
+        <content type="html"><![CDATA[<p>&#x2F;&#x2F;变量的类型 变量的名字 &#x3D; 变量的值<br>数组的三种初始化<br>数组的初始化方式总共有三种方式：静态初始化，动态初始化，默认初始化。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Java中的数组有三种初始化的方式：静态，动态，默认</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">demo2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//静态初始化数组</span></span><br><span class="line">        <span class="type">int</span>[] num1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">        System.out.println(<span class="string">&quot;静态初始化&quot;</span>);</span><br><span class="line">        <span class="comment">//动态初始化数组 动态初始化数组也有两种方法</span></span><br><span class="line">     </span><br><span class="line">        <span class="comment">//动态初始化数组方法一</span></span><br><span class="line">     </span><br><span class="line">        <span class="type">int</span>[] num2 = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; num2.length; i++) &#123;</span><br><span class="line">            num2[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;动态初始化一&quot;</span>);</span><br><span class="line">        <span class="comment">//动态初始化数组方法二</span></span><br><span class="line">        <span class="type">int</span>[] num3 = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>];</span><br><span class="line">        num3[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        num3[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        num3[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">        num3[<span class="number">3</span>] = <span class="number">1</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;动态初始化二&quot;</span>);</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//默认初始化数组</span></span><br><span class="line">        <span class="type">int</span>[] num4 = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>];</span><br><span class="line">        System.out.println(<span class="string">&quot;默认初始化&quot;</span>);</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>数组是引用类型，它的元素相当于类的实例变量，因此数组一经分配空间，其中的每个元素也被按照实例变量同样的方式被隐式初始化。</p><p>数组是相同数据类型(数据类型可以为任意类型)的有序集合<br>数组也是对象。数组元素相当于对象的成员变量<br>数组长度的确定的，不可变的。如果越界，则报:ArrayIndexOutofBounds</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.15)命令行传参</title>
+      <link href="/2022/08/15/%5B2022.10.15%5D%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82/"/>
+      <url>/2022/08/15/%5B2022.10.15%5D%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82/</url>
+      
+        <content type="html"><![CDATA[<p>运行一个程序时候再传递给它消息。这要靠传递命令行参数给main()函数实现</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DocTest</span> &#123;</span><br><span class="line">    <span class="comment">//命令行传参    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">( String[] args)</span></span><br><span class="line">      &#123;<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; args.length ; i++) &#123;                   system.out.println( <span class="string">&quot;args[ &quot;</span>+i+<span class="string">&quot;]&quot;</span>+args[i]);</span><br><span class="line">            &#125;    </span><br><span class="line">         &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>进入到命令窗口以后，首先需要编译该文件，javac + 文件名.java，将会生成.class文件，再返回到src下面，然后执行该程序，格式为：java + 文件路径 + 文件名+需要传进的参数</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.15)值传递 重载</title>
+      <link href="/2022/08/15/%5B2022.10.15%5D%E5%80%BC%E4%BC%A0%E9%80%92%20%E9%87%8D%E8%BD%BD/"/>
+      <url>/2022/08/15/%5B2022.10.15%5D%E5%80%BC%E4%BC%A0%E9%80%92%20%E9%87%8D%E8%BD%BD/</url>
+      
+        <content type="html"><![CDATA[<p><strong>什么是值传递 什么是引用传递 为什么java是值传递</strong></p><p><a href="http://t.csdn.cn/yS3Lj">http://t.csdn.cn/yS3Lj</a> 记住就行</p><p>调用方法:对象名.方法名(实参列表)<br>Java支持两种调用方法的方式，根据方法是否返回值来选择。当方法返回一个值的时候，方法调用通常被当做一个值。例如:<br>int larger &#x3D; max(30，40);<br>如果方法返回值是void，方法调用一定是一条语句。<br>system.out.println( “Hello “);  </p><p><strong>重载就是在一个类中，有相同的函数名称，但形参不同的函数</strong>。<br>方法的重载的规则:<br>方法名称必须相同。<br>参数列表必须不同(个数不同、或类型不同、参数排列顺序不同等)。方法的返回类型可以相同也可以不相同。<br>仅仅返回类型不同不足以成为方法的重载。<br>实现理论:<br>方法名称相同时，编译器会根据调用方法的参数个数、参数类型等去逐个匹配，以选择双应的方法，如果匹配失败，则编译器报错。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.14)三角形</title>
+      <link href="/2022/08/14/%5B2022.10.14%5D%E4%B8%89%E8%A7%92%E5%BD%A2/"/>
+      <url>/2022/08/14/%5B2022.10.14%5D%E4%B8%89%E8%A7%92%E5%BD%A2/</url>
+      
+        <content type="html"><![CDATA[<p>待补充</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.14)Java方法</title>
+      <link href="/2022/08/14/%5B2022.10.14%5DJava%E6%96%B9%E6%B3%95/"/>
+      <url>/2022/08/14/%5B2022.10.14%5DJava%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>加上static变成类变量</p><pre><code>Java方法是语句的集合，它们在一起执行一个功能。方法是解决一类问题的步骤的有序组合方法包含于类或对象中方法在程序中被创建，在其他地方被引用</code></pre><p>设计方法的原则:方法的本意是功能块，就是实现某个功能的语句块的集合，我们设计方法的时候，最好保持方法的原子性，就是一个方法只完成一个功能，这样有利于我们后期的扩展</p><h5 id="若不是静态类，在调用的时候要将此方法实例化"><a href="#若不是静态类，在调用的时候要将此方法实例化" class="headerlink" title="若不是静态类，在调用的时候要将此方法实例化"></a>若不是静态类，在调用的时候要将此方法实例化</h5><h5 id="若是静态类，则可以直接调用"><a href="#若是静态类，则可以直接调用" class="headerlink" title="若是静态类，则可以直接调用"></a>若是静态类，则可以直接调用</h5>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.8.13)循环与打印</title>
+      <link href="/2022/08/13/%5B2022.10.13%5D%E5%BE%AA%E7%8E%AF%E4%B8%8E%E6%89%93%E5%8D%B0/"/>
+      <url>/2022/08/13/%5B2022.10.13%5D%E5%BE%AA%E7%8E%AF%E4%B8%8E%E6%89%93%E5%8D%B0/</url>
+      
+        <content type="html"><![CDATA[<p>for与while，print与println,用scanner获取char的输入</p><p>Java中Scanner本身不支持直接获取char类型的数据</p><p>但是可以<strong>通过charAt()方法截取string的首位</strong>来获取char类型的数据</p><p>charAt() 方法用于返回指定索引处的字符。索引范围为从 0 到 length() - 1。<br><strong>该方法返回的数据类型为char类型</strong></p><p>Scanner scanner&#x3D;new Scanner(System.in);<br>char ch &#x3D; scanner.next().charAt(0);</p><p> <strong>print和println的区别</strong></p><p>\n：在Windows中表示换行，换到下一行的行首位置。在Linux，unix中表示左右位置不发生改变，换到下一行，及换行前后的纵坐标相同。</p><p>\t：在Window中表示缩进，相当于按下Tab键之间的距离，一般为八个字符。</p><p>\r：在Window中表示回车，即移动到本行的最开始位置。</p><p>System.out.println();<br> &#x2F;&#x2F;或者System.out.print(“\n”);<br>&#x2F;&#x2F;这两段代码等同，print加\n就是println<br>&#x2F;&#x2F;println输出完会换行，print输出完不会换行</p><p> <a href="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221013231813448-1832651364.gif"><img src="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221013231813448-1832651364.gif"></a></p><p><strong>while循环和for循环的区别</strong></p><p>for循环的表达式为：for（单次表达式;条件表达式;末尾循环体）{中间循环体；}。</p><p>while循环的表达式为：while（表达式）{循环体}。</p><p><a href="#" title="复制代码"><img src="https://common.cnblogs.com/images/copycode.gif"></a></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String\[\] args)</span> &#123;</span><br><span class="line">     <span class="type">int</span> i=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">while</span>(i &lt;= <span class="number">1000</span>)&#123;</span><br><span class="line">         <span class="comment">//++i;</span></span><br><span class="line">         <span class="keyword">if</span> (i%<span class="number">5</span>==<span class="number">0</span>)</span><br><span class="line">         System.out.print(i+<span class="string">&quot;\\t&quot;</span>);</span><br><span class="line">         i++;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">if</span> (i%<span class="number">15</span>==<span class="number">0</span>)&#123;</span><br><span class="line">         System.out.println();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;  </span><br><span class="line">为什么错了 不能按照三个一行输出？  </span><br><span class="line">因为第二个<span class="keyword">if</span>没有被扩进去！！！！</span><br></pre></td></tr></table></figure><p><a href="#" title="复制代码"><img src="https://common.cnblogs.com/images/copycode.gif"></a></p><p> 顺便记一下idea中for循环快捷键：数字.fori（需要在main或者自定义方法中才能生效）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaSE </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>暂时放着</title>
+      <link href="/2020/10/20/test%20copy%203/"/>
+      <url>/2020/10/20/test%20copy%203/</url>
+      
+        <content type="html"><![CDATA[<p>不知道会更新什么，也许是什么杂谈，模型教程(，一些乱七八糟的东西</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 建设中 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Test</title>
+      <link href="/2020/10/20/test%20copy%202/"/>
+      <url>/2020/10/20/test%20copy%202/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaWeb </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
