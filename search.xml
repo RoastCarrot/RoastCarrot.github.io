@@ -4,6 +4,38 @@
   
     
     <entry>
+      <title>title</title>
+      <link href="/2022/11/24/title/"/>
+      <url>/2022/11/24/title/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>(2022.9.23)Servlet</title>
+      <link href="/2022/09/23/%5B2022.11.23%5DServlet/"/>
+      <url>/2022/09/23/%5B2022.11.23%5DServlet/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1、面试题"><a href="#1、面试题" class="headerlink" title="1、面试题"></a>1、面试题</h2><p>请你谈谈一个网站是如何进行访问的</p><p>1、输入一个域名</p><p>2、检查本机的hosts下有没有这个域名的映射；</p><ul><li><p>1、有、返回对应的IP地址</p></li><li><p>2、没有、去DNS（全世界的域名都在这里管理）服务器找，找不到就返回找不到</p></li></ul><h2 id="2、一个web网站"><a href="#2、一个web网站" class="headerlink" title="2、一个web网站"></a>2、一个web网站</h2><p>  将自己写的网站，放到服务器（Tomcat）中指定的web应用的文件夹（webapps）下，就可以访问了</p><p>  网站应该有的结构</p>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">--webapps:Tomcat服务器的web目录</span><br><span class="line">    --ROOT</span><br><span class="line">    -kuangstudy：网站的目录名</span><br><span class="line">    -WEB-INF</span><br><span class="line">    -classes：java程序</span><br><span class="line">    -lib：web应用所依赖的jar包</span><br><span class="line">    -web.xml：网站配置文件</span><br><span class="line">    -index.html：默认的首页</span><br><span class="line">    -<span class="keyword">static</span></span><br><span class="line">    -css</span><br><span class="line">    -style.css</span><br><span class="line">    -js</span><br><span class="line">    -img</span><br></pre></td></tr></table></figure><p>  为什么要学习maven</p><p>  1、在javaweb开发中，我们需要使用大量的jar包，我们手动去导入</p><p>  2、如何能够让一个东西自动帮我们导入并配置这个jar包</p><p>  由此maven诞生</p><h2 id="3、maven项目架构管理工具"><a href="#3、maven项目架构管理工具" class="headerlink" title="3、maven项目架构管理工具"></a>3、maven项目架构管理工具</h2><p>  我们目前用来就是方便导入jar包</p><p>  maven的核心思想：<strong>约定大于配置</strong></p><p>  有约束，不要去违反</p><p>  Maven会规定好你该如何区编写我们的java代码，必须按照这个规范来</p><h1 id="4、servlet"><a href="#4、servlet" class="headerlink" title="4、servlet"></a><strong>4、servlet</strong></h1><h4 id="4-1、servlet简介"><a href="#4-1、servlet简介" class="headerlink" title="4.1、servlet简介"></a>4.1、servlet简介</h4><ul><li>servlet就是sun公司开发动态web的一门技术</li><li>sun在这些API中体重一个接口叫做：Servlet，如果你想开发一个servlet程序，只需要完成两个小步骤：<ul><li>编写一个类，实现servlet接口</li><li>把开发好的java类部署到web服务器中</li></ul></li></ul><p>  <strong>把实现了servlet接口的Java程序叫做servlet</strong></p><h4 id="4-2、HelloServlet"><a href="#4-2、HelloServlet" class="headerlink" title="4.2、HelloServlet"></a>4.2、HelloServlet</h4><p>Servlet接口在sun公司有两个默认的实现类：HttpServlet、GenericServlet</p><p>1、构建一个普通的maven项目，删掉里面的src目录，以后我们的学习就在这个项目里建立Moudel，这个空的工程就是maven主工程</p><p>2、关于maven父子工程的理解</p><ul><li>父项目中会有</li><li>子项目中会有</li><li>父项目中的java子项目可以直接使用</li></ul><p>3、maven环境的优化</p><ul><li>1、修改web.xml文件为最新的</li><li>2、将maven的结构搭建完整</li></ul><p>4、编写一个servlet</p><ul><li>1、编写一个普通类</li><li>2、实现Servlet接口，这里我们直接继承HttpServlet</li></ul><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//由于get或者post只是请求实现的不同方式，可以相互调用，业务逻辑都一样</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"><span class="comment">//        ServletInputStream inputStream = req.getInputStream();</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">//        ServletOutputStream outputStream = resp.getOutputStream();</span></span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> resp.getWriter();</span><br><span class="line">        writer.print(<span class="string">&quot;hello servlet&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="built_in">super</span>.doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>5、编写servlet的映射</p><p>为什么需要映射，我们写的是 java 程序，但是需要通过浏览器访问，而浏览器需要连接web服务器，所以我们需要在web服务中注册我们写的servlet，还需要给他一个浏览器能够访问的路径；</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.lwq.servlet.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Servlet的请求路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure><p>6、配置Tomcat</p><p>配置项目发布的路径</p><p>7、启动测试</p><p>启动问题：tomcat版本太高不符合maven依赖会报500错误，并不是代码问题，需要降低Tomcat版本</p><h4 id="4-3、Servlet原理"><a href="#4-3、Servlet原理" class="headerlink" title="4.3、Servlet原理"></a>4.3、Servlet原理</h4><p>Servlet是由web服务器调用，web服务器在收到浏览器的请求之后，会：</p><p><img src="C:\Users\1\AppData\Roaming\Typora\typora-user-images\image-20221124194112110.png" alt="image-20221124194112110"></p><h4 id="4-4、mapping问题"><a href="#4-4、mapping问题" class="headerlink" title="4.4、mapping问题"></a>4.4、mapping问题</h4><p>1、一个servlet可以指定一个映射路径</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注册Servlet--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.lwq.servlet.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Servlet的请求路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure><p>2、一个servlet可以指定多个映射路径</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注册Servlet--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.lwq.servlet.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Servlet的请求路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello2<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello3<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello4<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure><p>3、一个servlet可以指定通用映射路径</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注册Servlet--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.lwq.servlet.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--Servlet的请求路径--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure><p>4、指定一些后缀等</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注册Servlet--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.lwq.servlet.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Servlet的请求路径--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--可以自定义后缀实现请求映射--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--*面前不能加项目的路径映射--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.lwq<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure><p>5、优先级问题</p><p>指定了固有的映射路径优先级最高，如果找不到就会走默认的处理请求</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaWeb </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>(2022.9.9)进程的并发问题</title>
       <link href="/2022/09/09/%5B2022.11.9%5D%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/"/>
       <url>/2022/09/09/%5B2022.11.9%5D%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/</url>
@@ -61,11 +93,11 @@
     
     
     <entry>
-      <title>(2022.8.31)集合</title>
-      <link href="/2022/08/31/%5B2022.10.31%5D%E9%9B%86%E5%90%88/"/>
-      <url>/2022/08/31/%5B2022.10.31%5D%E9%9B%86%E5%90%88/</url>
+      <title>(2022.8.31)常用类— 6、JDK8的日期类 7、Math类和Random类 8、枚举类与注解</title>
+      <link href="/2022/08/31/%5B2022.10.31%5D%E5%B8%B8%E7%94%A8%E7%B1%BB%E2%80%94%206%E3%80%81JDK8%E7%9A%84%E6%97%A5%E6%9C%9F%E7%B1%BB%207%E3%80%81Math%E7%B1%BB%E5%92%8CRandom%E7%B1%BB%208%E3%80%81%E6%9E%9A%E4%B8%BE%E7%B1%BB%E4%B8%8E%E6%B3%A8%E8%A7%A3/"/>
+      <url>/2022/08/31/%5B2022.10.31%5D%E5%B8%B8%E7%94%A8%E7%B1%BB%E2%80%94%206%E3%80%81JDK8%E7%9A%84%E6%97%A5%E6%9C%9F%E7%B1%BB%207%E3%80%81Math%E7%B1%BB%E5%92%8CRandom%E7%B1%BB%208%E3%80%81%E6%9E%9A%E4%B8%BE%E7%B1%BB%E4%B8%8E%E6%B3%A8%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<h1 id="数组与集合"><a href="#数组与集合" class="headerlink" title="数组与集合"></a>数组与集合</h1><h4 id="Java的集合类定义在java-util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。"><a href="#Java的集合类定义在java-util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。" class="headerlink" title="Java的集合类定义在java.util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。#"></a>Java的集合类定义在<code>java.util</code>包中，支持泛型，主要提供了3种集合类，包括<code>List</code>，<code>Set</code>和<code>Map</code>。Java集合使用统一的<code>Iterator</code>遍历，尽量不要使用遗留接口。<a href="#">#</a></h4><p>1．集合与数组存储数据概述:<br>集合、数组都是对多个数据进行存储操作的结构，简称Java容器。<br>说明：此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt,.jpg,.avi，数据库中)<br>2．数组存储的特点：<br>&gt;一旦初始化以后，其长度就确定了。<br>&gt;数组一旦定义好，其元素的类型也就确定了。我们也就只能操作指定类型的数据了。*<br>比如: String[]arr;int[ ]arr1;object[] arr2;<br>3．数组存储的弊端:<br>&gt;—旦初始化以后,其长度就不可修改。<br>&gt;数组中提供的方法非常限，对于添加、删除、插入数据等操作，非常不便，同时效率不高。<br>&gt;获取数组中实际元素的个数的需求，数组没有现成的属性或方法可用<br>&gt;数组存储数据的特点:有序、可重复。对于无序、不可重复的需求，不能满足。</p><p>4．集合存储的优点:<br>解决数组存储数据方面的弊端</p>]]></content>
+        <content type="html"><![CDATA[<p><a href="https://www.bilibili.com/video/BV1Kb411W75N?p=484&vd_source=78421119a4563a7415c84dd650833d12">482.尚硅谷_常用类-JDK8中日期时间API的介绍_哔哩哔哩_bilibili</a></p>]]></content>
       
       
       <categories>
@@ -80,11 +112,11 @@
     
     
     <entry>
-      <title>(2022.8.31)常用类— 6、JDK8的日期类 7、Math类和Random类 8、枚举类与注解</title>
-      <link href="/2022/08/31/%5B2022.10.31%5D%E5%B8%B8%E7%94%A8%E7%B1%BB%E2%80%94%206%E3%80%81JDK8%E7%9A%84%E6%97%A5%E6%9C%9F%E7%B1%BB%207%E3%80%81Math%E7%B1%BB%E5%92%8CRandom%E7%B1%BB%208%E3%80%81%E6%9E%9A%E4%B8%BE%E7%B1%BB%E4%B8%8E%E6%B3%A8%E8%A7%A3/"/>
-      <url>/2022/08/31/%5B2022.10.31%5D%E5%B8%B8%E7%94%A8%E7%B1%BB%E2%80%94%206%E3%80%81JDK8%E7%9A%84%E6%97%A5%E6%9C%9F%E7%B1%BB%207%E3%80%81Math%E7%B1%BB%E5%92%8CRandom%E7%B1%BB%208%E3%80%81%E6%9E%9A%E4%B8%BE%E7%B1%BB%E4%B8%8E%E6%B3%A8%E8%A7%A3/</url>
+      <title>(2022.8.31)集合</title>
+      <link href="/2022/08/31/%5B2022.10.31%5D%E9%9B%86%E5%90%88/"/>
+      <url>/2022/08/31/%5B2022.10.31%5D%E9%9B%86%E5%90%88/</url>
       
-        <content type="html"><![CDATA[<p><a href="https://www.bilibili.com/video/BV1Kb411W75N?p=484&vd_source=78421119a4563a7415c84dd650833d12">482.尚硅谷_常用类-JDK8中日期时间API的介绍_哔哩哔哩_bilibili</a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="数组与集合"><a href="#数组与集合" class="headerlink" title="数组与集合"></a>数组与集合</h1><h4 id="Java的集合类定义在java-util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。"><a href="#Java的集合类定义在java-util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。" class="headerlink" title="Java的集合类定义在java.util包中，支持泛型，主要提供了3种集合类，包括List，Set和Map。Java集合使用统一的Iterator遍历，尽量不要使用遗留接口。#"></a>Java的集合类定义在<code>java.util</code>包中，支持泛型，主要提供了3种集合类，包括<code>List</code>，<code>Set</code>和<code>Map</code>。Java集合使用统一的<code>Iterator</code>遍历，尽量不要使用遗留接口。<a href="#">#</a></h4><p>1．集合与数组存储数据概述:<br>集合、数组都是对多个数据进行存储操作的结构，简称Java容器。<br>说明：此时的存储，主要指的是内存层面的存储，不涉及到持久化的存储（.txt,.jpg,.avi，数据库中)<br>2．数组存储的特点：<br>&gt;一旦初始化以后，其长度就确定了。<br>&gt;数组一旦定义好，其元素的类型也就确定了。我们也就只能操作指定类型的数据了。*<br>比如: String[]arr;int[ ]arr1;object[] arr2;<br>3．数组存储的弊端:<br>&gt;—旦初始化以后,其长度就不可修改。<br>&gt;数组中提供的方法非常限，对于添加、删除、插入数据等操作，非常不便，同时效率不高。<br>&gt;获取数组中实际元素的个数的需求，数组没有现成的属性或方法可用<br>&gt;数组存储数据的特点:有序、可重复。对于无序、不可重复的需求，不能满足。</p><p>4．集合存储的优点:<br>解决数组存储数据方面的弊端</p>]]></content>
       
       
       <categories>
@@ -232,11 +264,11 @@
     
     
     <entry>
-      <title>(2022.8.20)抽象类 异常等</title>
-      <link href="/2022/08/20/%5B2022.10.20%5D%E6%8A%BD%E8%B1%A1%E7%B1%BB%20%E5%BC%82%E5%B8%B8%E7%AD%89/"/>
-      <url>/2022/08/20/%5B2022.10.20%5D%E6%8A%BD%E8%B1%A1%E7%B1%BB%20%E5%BC%82%E5%B8%B8%E7%AD%89/</url>
+      <title>(2022.8.20)Java常用类</title>
+      <link href="/2022/08/20/%5B2022.10.20%5DJava%E5%B8%B8%E7%94%A8%E7%B1%BB/"/>
+      <url>/2022/08/20/%5B2022.10.20%5DJava%E5%B8%B8%E7%94%A8%E7%B1%BB/</url>
       
-        <content type="html"><![CDATA[<h3 id="抽象类的作用"><a href="#抽象类的作用" class="headerlink" title="抽象类的作用"></a>抽象类的作用</h3><ol><li>作为约束</li><li>定义一些方法，用于让不同的人实现</li><li>public abstract</li><li>public static final</li><li>接口不能被实例化，接口中没有构造方法</li><li>implements可以实现多个接口</li><li>必须要重写接口中的放法</li></ol><h3 id="异常的分类"><a href="#异常的分类" class="headerlink" title="异常的分类"></a>异常的分类</h3><p><img src="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221021163247909-2127714278.png" alt="img"></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="1、包装类"><a href="#1、包装类" class="headerlink" title="1、包装类"></a>1、包装类</h2><h2 id="2、String类"><a href="#2、String类" class="headerlink" title="2、String类"></a>2、String类</h2><h2 id="3、StringBuffer和StringBuilder类"><a href="#3、StringBuffer和StringBuilder类" class="headerlink" title="3、StringBuffer和StringBuilder类"></a>3、StringBuffer和StringBuilder类</h2><h2 id="4、Date类和DateFormat类"><a href="#4、Date类和DateFormat类" class="headerlink" title="4、Date类和DateFormat类"></a>4、Date类和DateFormat类</h2><h2 id="5、Calender类日期类"><a href="#5、Calender类日期类" class="headerlink" title="5、Calender类日期类"></a>5、Calender类日期类</h2><h2 id="6、JDK8的日期类"><a href="#6、JDK8的日期类" class="headerlink" title="6、JDK8的日期类"></a>6、JDK8的日期类</h2><h2 id="7、Math类和Random类"><a href="#7、Math类和Random类" class="headerlink" title="7、Math类和Random类"></a>7、Math类和Random类</h2><h2 id="8、枚举"><a href="#8、枚举" class="headerlink" title="8、枚举"></a>8、枚举</h2>]]></content>
       
       
       <categories>
@@ -251,11 +283,11 @@
     
     
     <entry>
-      <title>(2022.8.20)Java常用类</title>
-      <link href="/2022/08/20/%5B2022.10.20%5DJava%E5%B8%B8%E7%94%A8%E7%B1%BB/"/>
-      <url>/2022/08/20/%5B2022.10.20%5DJava%E5%B8%B8%E7%94%A8%E7%B1%BB/</url>
+      <title>(2022.8.20)抽象类 异常等</title>
+      <link href="/2022/08/20/%5B2022.10.20%5D%E6%8A%BD%E8%B1%A1%E7%B1%BB%20%E5%BC%82%E5%B8%B8%E7%AD%89/"/>
+      <url>/2022/08/20/%5B2022.10.20%5D%E6%8A%BD%E8%B1%A1%E7%B1%BB%20%E5%BC%82%E5%B8%B8%E7%AD%89/</url>
       
-        <content type="html"><![CDATA[<h2 id="1、包装类"><a href="#1、包装类" class="headerlink" title="1、包装类"></a>1、包装类</h2><h2 id="2、String类"><a href="#2、String类" class="headerlink" title="2、String类"></a>2、String类</h2><h2 id="3、StringBuffer和StringBuilder类"><a href="#3、StringBuffer和StringBuilder类" class="headerlink" title="3、StringBuffer和StringBuilder类"></a>3、StringBuffer和StringBuilder类</h2><h2 id="4、Date类和DateFormat类"><a href="#4、Date类和DateFormat类" class="headerlink" title="4、Date类和DateFormat类"></a>4、Date类和DateFormat类</h2><h2 id="5、Calender类日期类"><a href="#5、Calender类日期类" class="headerlink" title="5、Calender类日期类"></a>5、Calender类日期类</h2><h2 id="6、JDK8的日期类"><a href="#6、JDK8的日期类" class="headerlink" title="6、JDK8的日期类"></a>6、JDK8的日期类</h2><h2 id="7、Math类和Random类"><a href="#7、Math类和Random类" class="headerlink" title="7、Math类和Random类"></a>7、Math类和Random类</h2><h2 id="8、枚举"><a href="#8、枚举" class="headerlink" title="8、枚举"></a>8、枚举</h2>]]></content>
+        <content type="html"><![CDATA[<h3 id="抽象类的作用"><a href="#抽象类的作用" class="headerlink" title="抽象类的作用"></a>抽象类的作用</h3><ol><li>作为约束</li><li>定义一些方法，用于让不同的人实现</li><li>public abstract</li><li>public static final</li><li>接口不能被实例化，接口中没有构造方法</li><li>implements可以实现多个接口</li><li>必须要重写接口中的放法</li></ol><h3 id="异常的分类"><a href="#异常的分类" class="headerlink" title="异常的分类"></a>异常的分类</h3><p><img src="https://img2022.cnblogs.com/blog/3002690/202210/3002690-20221021163247909-2127714278.png" alt="img"></p>]]></content>
       
       
       <categories>
@@ -346,11 +378,11 @@
     
     
     <entry>
-      <title>(2022.8.15)值传递 重载</title>
-      <link href="/2022/08/15/%5B2022.10.15%5D%E5%80%BC%E4%BC%A0%E9%80%92%20%E9%87%8D%E8%BD%BD/"/>
-      <url>/2022/08/15/%5B2022.10.15%5D%E5%80%BC%E4%BC%A0%E9%80%92%20%E9%87%8D%E8%BD%BD/</url>
+      <title>(2022.8.15)命令行传参</title>
+      <link href="/2022/08/15/%5B2022.10.15%5D%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82/"/>
+      <url>/2022/08/15/%5B2022.10.15%5D%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82/</url>
       
-        <content type="html"><![CDATA[<p><strong>什么是值传递 什么是引用传递 为什么java是值传递</strong></p><p><a href="http://t.csdn.cn/yS3Lj">http://t.csdn.cn/yS3Lj</a> 记住就行</p><p>调用方法:对象名.方法名(实参列表)<br>Java支持两种调用方法的方式，根据方法是否返回值来选择。当方法返回一个值的时候，方法调用通常被当做一个值。例如:<br>int larger &#x3D; max(30，40);<br>如果方法返回值是void，方法调用一定是一条语句。<br>system.out.println( “Hello “);  </p><p><strong>重载就是在一个类中，有相同的函数名称，但形参不同的函数</strong>。<br>方法的重载的规则:<br>方法名称必须相同。<br>参数列表必须不同(个数不同、或类型不同、参数排列顺序不同等)。方法的返回类型可以相同也可以不相同。<br>仅仅返回类型不同不足以成为方法的重载。<br>实现理论:<br>方法名称相同时，编译器会根据调用方法的参数个数、参数类型等去逐个匹配，以选择双应的方法，如果匹配失败，则编译器报错。</p>]]></content>
+        <content type="html"><![CDATA[<p>运行一个程序时候再传递给它消息。这要靠传递命令行参数给main()函数实现</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DocTest</span> &#123;</span><br><span class="line">    <span class="comment">//命令行传参    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">( String[] args)</span></span><br><span class="line">      &#123;<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; args.length ; i++) &#123;                   system.out.println( <span class="string">&quot;args[ &quot;</span>+i+<span class="string">&quot;]&quot;</span>+args[i]);</span><br><span class="line">            &#125;    </span><br><span class="line">         &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>进入到命令窗口以后，首先需要编译该文件，javac + 文件名.java，将会生成.class文件，再返回到src下面，然后执行该程序，格式为：java + 文件路径 + 文件名+需要传进的参数</p>]]></content>
       
       
       <categories>
@@ -365,11 +397,11 @@
     
     
     <entry>
-      <title>(2022.8.15)命令行传参</title>
-      <link href="/2022/08/15/%5B2022.10.15%5D%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82/"/>
-      <url>/2022/08/15/%5B2022.10.15%5D%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82/</url>
+      <title>(2022.8.15)值传递 重载</title>
+      <link href="/2022/08/15/%5B2022.10.15%5D%E5%80%BC%E4%BC%A0%E9%80%92%20%E9%87%8D%E8%BD%BD/"/>
+      <url>/2022/08/15/%5B2022.10.15%5D%E5%80%BC%E4%BC%A0%E9%80%92%20%E9%87%8D%E8%BD%BD/</url>
       
-        <content type="html"><![CDATA[<p>运行一个程序时候再传递给它消息。这要靠传递命令行参数给main()函数实现</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DocTest</span> &#123;</span><br><span class="line">    <span class="comment">//命令行传参    </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">( String[] args)</span></span><br><span class="line">      &#123;<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; args.length ; i++) &#123;                   system.out.println( <span class="string">&quot;args[ &quot;</span>+i+<span class="string">&quot;]&quot;</span>+args[i]);</span><br><span class="line">            &#125;    </span><br><span class="line">         &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>进入到命令窗口以后，首先需要编译该文件，javac + 文件名.java，将会生成.class文件，再返回到src下面，然后执行该程序，格式为：java + 文件路径 + 文件名+需要传进的参数</p>]]></content>
+        <content type="html"><![CDATA[<p><strong>什么是值传递 什么是引用传递 为什么java是值传递</strong></p><p><a href="http://t.csdn.cn/yS3Lj">http://t.csdn.cn/yS3Lj</a> 记住就行</p><p>调用方法:对象名.方法名(实参列表)<br>Java支持两种调用方法的方式，根据方法是否返回值来选择。当方法返回一个值的时候，方法调用通常被当做一个值。例如:<br>int larger &#x3D; max(30，40);<br>如果方法返回值是void，方法调用一定是一条语句。<br>system.out.println( “Hello “);  </p><p><strong>重载就是在一个类中，有相同的函数名称，但形参不同的函数</strong>。<br>方法的重载的规则:<br>方法名称必须相同。<br>参数列表必须不同(个数不同、或类型不同、参数排列顺序不同等)。方法的返回类型可以相同也可以不相同。<br>仅仅返回类型不同不足以成为方法的重载。<br>实现理论:<br>方法名称相同时，编译器会根据调用方法的参数个数、参数类型等去逐个匹配，以选择双应的方法，如果匹配失败，则编译器报错。</p>]]></content>
       
       
       <categories>
@@ -441,16 +473,16 @@
     
     
     <entry>
-      <title>Test</title>
-      <link href="/2020/10/20/test%20copy%202/"/>
-      <url>/2020/10/20/test%20copy%202/</url>
+      <title>暂时放着</title>
+      <link href="/2021/10/20/test%20copy%203/"/>
+      <url>/2021/10/20/test%20copy%203/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>不知道会更新什么，也许是什么杂谈，模型教程(，一些乱七八糟的东西</p>]]></content>
       
       
       <categories>
           
-          <category> JavaWeb </category>
+          <category> 建设中 </category>
           
       </categories>
       
@@ -460,16 +492,16 @@
     
     
     <entry>
-      <title>暂时放着</title>
-      <link href="/2020/10/20/test%20copy%203/"/>
-      <url>/2020/10/20/test%20copy%203/</url>
+      <title>Test(JavaWeb)</title>
+      <link href="/2021/10/20/test%20copy%202/"/>
+      <url>/2021/10/20/test%20copy%202/</url>
       
-        <content type="html"><![CDATA[<p>不知道会更新什么，也许是什么杂谈，模型教程(，一些乱七八糟的东西</p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
       <categories>
           
-          <category> 建设中 </category>
+          <category> JavaWeb </category>
           
       </categories>
       
