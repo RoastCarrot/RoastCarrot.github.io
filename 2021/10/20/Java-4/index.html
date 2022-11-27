@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>面试题整理-JavaSE-4 | RoastCarrot</title><meta name="author" content="RoastCarrot"><meta name="copyright" content="RoastCarrot"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="1.36 遇到过异常吗，如何处理？​	参考答案 ​	在Java中，可以按照如下三个步骤处理异常：  ​			捕获异常 	 ​			将业务代码包裹在try块内部，当业务代码中发生任何异常时，系统都会为此异常创建一个异常对象。创建异常对象之后，JVM会在try块之后寻找可以处理它的catch块，并将异常对象交给这个catch块处理。 	  ​			处理异常 	 ​			在catch块中处理异常时，应该">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题整理-JavaSE-4">
+<meta property="og:url" content="http://example.com/2021/10/20/Java-4/index.html">
+<meta property="og:site_name" content="RoastCarrot">
+<meta property="og:description" content="1.36 遇到过异常吗，如何处理？​	参考答案 ​	在Java中，可以按照如下三个步骤处理异常：  ​			捕获异常 	 ​			将业务代码包裹在try块内部，当业务代码中发生任何异常时，系统都会为此异常创建一个异常对象。创建异常对象之后，JVM会在try块之后寻找可以处理它的catch块，并将异常对象交给这个catch块处理。 	  ​			处理异常 	 ​			在catch块中处理异常时，应该">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.uuu.ovh/imgs/2022/11/26/6d2940a81509df0b.png">
+<meta property="article:published_time" content="2021-10-20T12:00:04.000Z">
+<meta property="article:modified_time" content="2021-10-20T12:00:00.000Z">
+<meta property="article:author" content="RoastCarrot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.uuu.ovh/imgs/2022/11/26/6d2940a81509df0b.png"><link rel="shortcut icon" href="/img/gourailogo.png"><link rel="canonical" href="http://example.com/2021/10/20/Java-4/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面试题整理-JavaSE-4',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-20 20:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"> <link rel="stylesheet" href="/css/transpancy.css"> <link rel="stylesheet" href="/css/mouse.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css"><link rel="stylesheet" href="https://unpkg.zhimg.com/hexo-butterfly-clock/lib/clock.min.css" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/gourailogo.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s3.uuu.ovh/imgs/2022/11/26/6d2940a81509df0b.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">RoastCarrot</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面试题整理-JavaSE-4</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-10-20T12:00:04.000Z" title="发表于 2021-10-20 20:00:04">2021-10-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-20T12:00:00.000Z" title="更新于 2021-10-20 20:00:00">2021-10-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java%E9%9D%A2%E8%AF%95%E9%A2%98/">Java面试题</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="面试题整理-JavaSE-4"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h4 id="1-36-遇到过异常吗，如何处理？"><a href="#1-36-遇到过异常吗，如何处理？" class="headerlink" title="1.36 遇到过异常吗，如何处理？"></a>1.36 遇到过异常吗，如何处理？</h4><p>​	<strong>参考答案</strong></p>
+<p>​	在Java中，可以按照如下三个步骤处理异常：</p>
+<ol>
+<li><p>​			捕获异常 	</p>
+<p>​			将业务代码包裹在try块内部，当业务代码中发生任何异常时，系统都会为此异常创建一个异常对象。创建异常对象之后，JVM会在try块之后寻找可以处理它的catch块，并将异常对象交给这个catch块处理。 	</p>
+</li>
+<li><p>​			处理异常 	</p>
+<p>​			在catch块中处理异常时，应该先记录日志，便于以后追溯这个异常。然后根据异常的类型、结合当前的业务情况，进行相应的处理。比如，给变量赋予一个默认值、直接返回空值、向外抛出一个新的业务异常交给调用者处理，等等。 	</p>
+</li>
+<li><p>​			回收资源 	</p>
+<p>​			如果业务代码打开了某个资源，比如数据库连接、网络连接、磁盘文件等，则需要在这段业务代码执行完毕后关闭这项资源。并且，无论是否发生异常，都要尝试关闭这项资源。将关闭资源的代码写在finally块内，可以满足这种需求，即无论是否发生异常，finally块内的代码总会被执行。</p>
+</li>
+</ol>
+<p> 	</p>
+<h4 id="1-37-说一说Java的异常机制"><a href="#1-37-说一说Java的异常机制" class="headerlink" title="1.37 说一说Java的异常机制"></a>1.37 说一说Java的异常机制</h4><p>​	<strong>参考答案</strong></p>
+<p>​	关于异常处理：</p>
+<p>​	在Java中，处理异常的语句由try、catch、finally三部分组成。其中，try块用于包裹业务代码，catch块用于捕获并处理某个类型的异常，finally块则用于回收资源。当业务代码发生异常时，系统会创建一个异常对象，然后由JVM寻找可以处理这个异常的catch块，并将异常对象交给这个catch块处理。若业务代码打开了某项资源，则可以在finally块中关闭这项资源，因为无论是否发生异常，finally块一定会执行。</p>
+<p>​	关于抛出异常：</p>
+<p>​	当程序出现错误时，系统会自动抛出异常。除此以外，Java也允许程序主动抛出异常。当业务代码中，判断某项错误的条件成立时，可以使用throw关键字向外抛出异常。在这种情况下，如果当前方法不知道该如何处理这个异常，可以在方法签名上通过throws关键字声明抛出异常，则该异常将交给JVM处理。</p>
+<p>​	关于异常跟踪栈：</p>
+<p>​	程序运行时，经常会发生一系列方法调用，从而形成方法调用栈。异常机制会导致异常在这些方法之间传播，而异常传播的顺序与方法的调用相反。异常从发生异常的方法向外传播，首先传给该方法的调用者，再传给上层调用者，以此类推。最终会传到main方法，若依然没有得到处理，则JVM会终止程序，并打印异常跟踪栈的信息</p>
+<h4 id="1-38-请介绍Java的异常接口"><a href="#1-38-请介绍Java的异常接口" class="headerlink" title="1.38 请介绍Java的异常接口"></a>1.38 请介绍Java的异常接口</h4><p>​	<strong>参考答案</strong></p>
+<p>​	Throwable是异常的顶层父类，代表所有的非正常情况。它有两个直接子类，分别是Error、Exception。</p>
+<p>​	Error是错误，一般是指与虚拟机相关的问题，如系统崩溃、虚拟机错误、动态链接失败等，这种错误无法恢复或不可能捕获，将导致应用程序中断。通常应用程序无法处理这些错误，因此应用程序不应该试图使用catch块来捕获Error对象。在定义方法时，也无须在其throws子句中声明该方法可能抛出Error及其任何子类。</p>
+<p>​	Exception是异常，它被分为两大类，分别是Checked异常和Runtime异常。所有的RuntimeException类及其子类的实例被称为Runtime异常；不是RuntimeException类及其子类的异常实例则被称为Checked异常。Java认为Checked异常都是可以被处理（修复）的异常，所以Java程序必须显式处理Checked异常。如果程序没有处理Checked异常，该程序在编译时就会发生错误，无法通过编译。Runtime异常则更加灵活，Runtime异常无须显式声明抛出，如果程序需要捕获Runtime异常，也可以使用try…catch块来实现。</p>
+<h4 id="1-39-finally是无条件执行的吗？"><a href="#1-39-finally是无条件执行的吗？" class="headerlink" title="1.39 finally是无条件执行的吗？"></a>1.39 finally是无条件执行的吗？</h4><p>​	<strong>参考答案</strong></p>
+<p>​	不管try块中的代码是否出现异常，也不管哪一个catch块被执行，甚至在try块或catch块中执行了return语句，finally块总会被执行。</p>
+<p>​	<strong>注意事项</strong></p>
+<p>​	如果在try块或catch块中使用 System.exit(1); 来退出虚拟机，则finally块将失去执行的机会。但是我们在实际的开发中，重来都不会这样做，所以尽管存在这种导致finally块无法执行的可能，也只是一种可能而已。</p>
+<h4 id="1-40-在finally中return会发生什么？"><a href="#1-40-在finally中return会发生什么？" class="headerlink" title="1.40 在finally中return会发生什么？"></a>1.40 在finally中return会发生什么？</h4><p>​	<strong>参考答案</strong></p>
+<p>​	在通常情况下，不要在finally块中使用return、throw等导致方法终止的语句，一旦在finally块中使用了return、throw语句，将会导致try块、catch块中的return、throw语句失效。</p>
+<p>​	<strong>详细解析</strong></p>
+<p>​	当Java程序执行try块、catch块时遇到了return或throw语句，这两个语句都会导致该方法立即结束，但是系统执行这两个语句并不会结束该方法，而是去寻找该异常处理流程中是否包含finally块，如果没有finally块，程序立即执行return或throw语句，方法终止；如果有finally块，系统立即开始执行finally块。只有当finally块执行完成后，系统才会再次跳回来执行try块、catch块里的return或throw语句；如果finally块里也使用了return或throw等导致方法终止的语句，finally块已经终止了方法，系统将不会跳回去执行try块、catch块里的任何代码。</p>
+<h4 id="1-41-说一说你对static关键字的理解"><a href="#1-41-说一说你对static关键字的理解" class="headerlink" title="1.41 说一说你对static关键字的理解"></a>1.41 说一说你对static关键字的理解</h4><p>​	<strong>参考答案</strong></p>
+<p>​	在Java类里只能包含成员变量、方法、构造器、初始化块、内部类（包括接口、枚举）5种成员，而static可以修饰成员变量、方法、初始化块、内部类（包括接口、枚举），以static修饰的成员就是类成员。类成员属于整个类，而不属于单个对象。</p>
+<p>​	对static关键字而言，有一条非常重要的规则：类成员（包括成员变量、方法、初始化块、内部类和内部枚举）不能访问实例成员（包括成员变量、方法、初始化块、内部类和内部枚举）。因为类成员是属于类的，类成员的作用域比实例成员的作用域更大，完全可能出现类成员已经初始化完成，但实例成员还不曾初始化的情况，如果允许类成员访问实例成员将会引起大量错误。</p>
+<h4 id="1-42-static修饰的类能不能被继承？"><a href="#1-42-static修饰的类能不能被继承？" class="headerlink" title="1.42 static修饰的类能不能被继承？"></a>1.42 static修饰的类能不能被继承？</h4><p>​	<strong>参考答案</strong></p>
+<p>​	static修饰的类可以被继承。</p>
+<p>​	<strong>扩展阅读</strong></p>
+<p>​	如果使用static来修饰一个内部类，则这个内部类就属于外部类本身，而不属于外部类的某个对象。因此使用static修饰的内部类被称为类内部类，有的地方也称为静态内部类。</p>
+<p>​	static关键字的作用是把类的成员变成类相关，而不是实例相关，即static修饰的成员属于整个类，而不属于单个对象。外部类的上一级程序单元是包，所以不可使用static修饰；而内部类的上一级程序单元是外部类，使用static修饰可以将内部类变成外部类相关，而不是外部类实例相关。因此static关键字不可修饰外部类，但可修饰内部类。</p>
+<p>​	静态内部类需满足如下规则：</p>
+<ol>
+<li><p>​			静态内部类可以包含静态成员，也可以包含非静态成员； 	</p>
+</li>
+<li><p>​			静态内部类不能访问外部类的实例成员，只能访问它的静态成员； 	</p>
+</li>
+<li><p>​			外部类的所有方法、初始化块都能访问其内部定义的静态内部类； 	</p>
+</li>
+<li><p>​			在外部类的外部，也可以实例化静态内部类，语法如下： 	</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">外部类.内部类 变量名 = new 外部类.内部类构造方法();</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="1-43-static和final有什么区别？"><a href="#1-43-static和final有什么区别？" class="headerlink" title="1.43 static和final有什么区别？"></a>1.43 static和final有什么区别？</h4><p>​	<strong>参考答案</strong></p>
+<p>​	static关键字可以修饰成员变量、成员方法、初始化块、内部类，被static修饰的成员是类的成员，它属于类、不属于单个对象。以下是static修饰这4种成员时表现出的特征：</p>
+<ul>
+<li>​			类变量：被static修饰的成员变量叫类变量（静态变量）。类变量属于类，它随类的信息存储在方法区，并不随对象存储在堆中，类变量可以通过类名来访问，也可以通过对象名来访问，但建议通过类名访问它。 	</li>
+<li>​			类方法：被static修饰的成员方法叫类方法（静态方法）。类方法属于类，可以通过类名访问，也可以通过对象名访问，建议通过类名访问它。 	</li>
+<li>​			静态块：被static修饰的初始化块叫静态初始化块。静态块属于类，它在类加载的时候被隐式调用一次，之后便不会被调用了。 	</li>
+<li>​			静态内部类：被static修饰的内部类叫静态内部类。静态内部类可以包含静态成员，也可以包含非静态成员。静态内部类不能访问外部类的实例成员，只能访问外部类的静态成员。外部类的所有方法、初始化块都能访问其内部定义的静态内部类。</li>
+</ul>
+<p> 	</p>
+<p>​	final关键字可以修饰类、方法、变量，以下是final修饰这3种目标时表现出的特征：</p>
+<ul>
+<li>​			final类：final关键字修饰的类不可以被继承。 	</li>
+<li>​			final方法：final关键字修饰的方法不可以被重写。 	</li>
+<li>​			final变量：final关键字修饰的变量，一旦获得了初始值，就不可以被修改。</li>
+</ul>
+<p> 	</p>
+<p>​	<strong>扩展阅读</strong></p>
+<p>​	变量分为成员变量、局部变量。</p>
+<p>​	final修饰成员变量：</p>
+<ul>
+<li>​			类变量：可以在声明变量时指定初始值，也可以在静态初始化块中指定初始值； 	</li>
+<li>​			实例变量：可以在声明变量时指定初始值，也可以在初始化块或构造方法中指定初始值；</li>
+</ul>
+<p> 	</p>
+<p>​	final修饰局部变量：</p>
+<ul>
+<li>​			可以在声明变量时指定初始值，也可以在后面的代码中指定初始值。</li>
+</ul>
+<p> 	</p>
+<p>​	<em>注意：被 final 修饰的任何形式的变量，一旦获得了初始值，就不可以被修改！</em></p>
+<h4 id="1-44-说一说你对泛型的理解"><a href="#1-44-说一说你对泛型的理解" class="headerlink" title="1.44 说一说你对泛型的理解"></a>1.44 说一说你对泛型的理解</h4><p>​	<strong>参考答案</strong></p>
+<p>​	Java集合有个缺点—把一个对象“丢进”集合里之后，集合就会“忘记”这个对象的数据类型，当再次取出该对象时，该对象的编译类型就变成了Object类型（其运行时类型没变）。</p>
+<p>​	Java集合之所以被设计成这样，是因为集合的设计者不知道我们会用集合来保存什么类型的对象，所以他们把集合设计成能保存任何类型的对象，只要求具有很好的通用性。但这样做带来如下两个问题：</p>
+<ul>
+<li>​			集合对元素类型没有任何限制，这样可能引发一些问题。例如，想创建一个只能保存Dog对象的集合，但程序也可以轻易地将Cat对象“丢”进去，所以可能引发异常。 	</li>
+<li>​			由于把对象“丢进”集合时，集合丢失了对象的状态信息，只知道它盛装的是Object，因此取出集合元素后通常还需要进行强制类型转换。这种强制类型转换既增加了编程的复杂度，也可能引发ClassCastException异常。</li>
+</ul>
+<p> 	</p>
+<p>​	从Java 5开始，Java引入了“参数化类型”的概念，允许程序在创建集合时指定集合元素的类型，Java的参数化类型被称为泛型（Generic）。例如 List<String>，表明该List只能保存字符串类型的对象。</p>
+<p>​	有了泛型以后，程序再也不能“不小心”地把其他对象“丢进”集合中。而且程序更加简洁，集合自动记住所有集合元素的数据类型，从而无须对集合元素进行强制类型转换。</p>
+<h4 id="1-45-介绍一下泛型擦除"><a href="#1-45-介绍一下泛型擦除" class="headerlink" title="1.45 介绍一下泛型擦除"></a>1.45 介绍一下泛型擦除</h4><p>​	<strong>参考答案</strong></p>
+<p>​	在严格的泛型代码里，带泛型声明的类总应该带着类型参数。但为了与老的Java代码保持一致，也允许在使用带泛型声明的类时不指定实际的类型。如果没有为这个泛型类指定实际的类型，此时被称作raw type（原始类型），默认是声明该泛型形参时指定的第一个上限类型。</p>
+<p>​	当把一个具有泛型信息的对象赋给另一个没有泛型信息的变量时，所有在尖括号之间的类型信息都将被扔掉。比如一个 List<String> 类型被转换为List，则该List对集合元素的类型检查变成了泛型参数的上限（即Object）。</p>
+<p>​	上述规则即为泛型擦除，可以通过下面代码进一步理解泛型擦除：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list1 = ...; List list2 = list1; // list2将元素当做Object处理</span><br></pre></td></tr></table></figure>
+
+<p>​	<strong>扩展阅读</strong></p>
+<p>​	从逻辑上来看，List<String> 是List的子类，如果直接把一个List对象赋给一个List<String>对象应该引起编译错误，但实际上不会。对泛型而言，可以直接把一个List对象赋给一个 List<String> 对象，编译器仅仅提示“未经检查的转换”。</p>
+<p>​	上述规则叫做泛型转换，可以通过下面代码进一步理解泛型转换：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List list1 = ...; List&lt;String&gt; list2 = list1; // 编译时警告“未经检查的转换”</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-46-List-lt-super-T-gt-和List-lt-extends-T-gt-有什么区别？"><a href="#1-46-List-lt-super-T-gt-和List-lt-extends-T-gt-有什么区别？" class="headerlink" title="1.46 List&lt;? super T&gt;和List&lt;? extends T&gt;有什么区别？"></a>1.46 List&lt;? super T&gt;和List&lt;? extends T&gt;有什么区别？</h4><p>​	<strong>参考答案</strong></p>
+<ul>
+<li>​			? 是类型通配符，List&lt;?&gt; 可以表示各种泛型List的父类，意思是元素类型未知的List； 	</li>
+<li>​			List&lt;? super T&gt; 用于设定类型通配符的下限，此处 ? 代表一个未知的类型，但它必须是T的父类型； 	</li>
+<li>​			List&lt;? extends T&gt; 用于设定类型通配符的上限，此处 ? 代表一个未知的类型，但它必须是T的子类型。</li>
+</ul>
+<p> 	</p>
+<p>​	<strong>扩展阅读</strong></p>
+<p>​	在Java的早期设计中，允许把Integer[]数组赋值给Number[]变量，此时如果试图把一个Double对象保存到该Number[]数组中，编译可以通过，但在运行时抛出ArrayStoreException异常。这显然是一种不安全的设计，因此Java在泛型设计时进行了改进，它不再允许把 List<Integer> 对象赋值给 List<Number> 变量。</p>
+<p>​	数组和泛型有所不同，假设Foo是Bar的一个子类型（子类或者子接口），那么Foo[]依然是Bar[]的子类型，但G<Foo> 不是 G<Bar> 的子类型。Foo[]自动向上转型为Bar[]的方式被称为型变，也就是说，Java的数组支持型变，但Java集合并不支持型变。Java泛型的设计原则是，只要代码在编译时没有出现警告，就不会遇到运行时ClassCastException异常。</p>
+<h4 id="1-47-说一说你对Java反射机制的理解"><a href="#1-47-说一说你对Java反射机制的理解" class="headerlink" title="1.47 说一说你对Java反射机制的理解"></a>1.47 说一说你对Java反射机制的理解</h4><p>​	<strong>参考答案</strong></p>
+<p>​	Java程序中的对象在运行时可以表现为两种类型，即编译时类型和运行时类型。例如 Person p &#x3D; new Student(); ，这行代码将会生成一个p变量，该变量的编译时类型为Person，运行时类型为Student。</p>
+<p>​	有时，程序在运行时接收到外部传入的一个对象，该对象的编译时类型是Object，但程序又需要调用该对象的运行时类型的方法。这就要求程序需要在运行时发现对象和类的真实信息，而解决这个问题有以下两种做法：</p>
+<ul>
+<li>​			第一种做法是假设在编译时和运行时都完全知道类型的具体信息，在这种情况下，可以先使用instanceof运算符进行判断，再利用强制类型转换将其转换成其运行时类型的变量即可。 	</li>
+<li>​			第二种做法是编译时根本无法预知该对象和类可能属于哪些类，程序只依靠运行时信息来发现该对象和类的真实信息，这就必须使用反射。</li>
+</ul>
+<p> 	</p>
+<p>​	具体来说，通过反射机制，我们可以实现如下的操作：</p>
+<ul>
+<li>​			程序运行时，可以通过反射获得任意一个类的Class对象，并通过这个对象查看这个类的信息； 	</li>
+<li>​			程序运行时，可以通过反射创建任意一个类的实例，并访问该实例的成员； 	</li>
+<li>​			程序运行时，可以通过反射机制生成一个类的动态代理类或动态代理对象。</li>
+</ul>
+<p> 	</p>
+<h4 id="1-48-Java反射在实际项目中有哪些应用场景？"><a href="#1-48-Java反射在实际项目中有哪些应用场景？" class="headerlink" title="1.48 Java反射在实际项目中有哪些应用场景？"></a>1.48 Java反射在实际项目中有哪些应用场景？</h4><p>​	<strong>参考答案</strong></p>
+<p>​	Java的反射机制在实际项目中应用广泛，常见的应用场景有：</p>
+<ul>
+<li>​			使用JDBC时，如果要创建数据库的连接，则需要先通过反射机制加载数据库的驱动程序； 	</li>
+<li>​			多数框架都支持注解&#x2F;XML配置，从配置中解析出来的类是字符串，需要利用反射机制实例化； 	</li>
+<li>​			面向切面编程（AOP）的实现方案，是在程序运行时创建目标对象的代理类，这必须由反射机制来实现。</li>
+</ul>
+<p> 	</p>
+<h4 id="1-49-说一说Java的四种引用方式"><a href="#1-49-说一说Java的四种引用方式" class="headerlink" title="1.49 说一说Java的四种引用方式"></a>1.49 说一说Java的四种引用方式</h4><p>​	<strong>参考答案</strong></p>
+<p>​	Java对象的四种引用方式分别是强引用、软引用、弱引用、虚引用，具体含义如下：</p>
+<ul>
+<li>​			强引用：这是Java程序中最常见的引用方式，即程序创建一个对象，并把这个对象赋给一个引用变量，程序通过该引用变量来操作实际的对象。当一个对象被一个或一个以上的引用变量所引用时，它处于可达状态，不可能被系统垃圾回收机制回收。 	</li>
+<li>​			软引用：当一个对象只有软引用时，它有可能被垃圾回收机制回收。对于只有软引用的对象而言，当系统内存空间足够时，它不会被系统回收，程序也可使用该对象。当系统内存空间不足时，系统可能会回收它。软引用通常用于对内存敏感的程序中。 	</li>
+<li>​			弱引用：弱引用和软引用很像，但弱引用的引用级别更低。对于只有弱引用的对象而言，当系统垃圾回收机制运行时，不管系统内存是否足够，总会回收该对象所占用的内存。当然，并不是说当一个对象只有弱引用时，它就会立即被回收，正如那些失去引用的对象一样，必须等到系统垃圾回收机制运行时才会被回收。 	</li>
+<li>​			虚引用：虚引用完全类似于没有引用。虚引用对对象本身没有太大影响，对象甚至感觉不到虚引用的存在。如果一个对象只有一个虚引用时，那么它和没有引用的效果大致相同。虚引用主要用于跟踪对象被垃圾回收的状态，虚引用不能单独使用，虚引用必须和引用队列联合使用。</li>
+</ul>
+<p> 	</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">RoastCarrot</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/10/20/Java-4/">http://example.com/2021/10/20/Java-4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">RoastCarrot</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s3.uuu.ovh/imgs/2022/11/26/6d2940a81509df0b.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/13/%5B2022.10.13%5D%E5%BE%AA%E7%8E%AF%E4%B8%8E%E6%89%93%E5%8D%B0/"><img class="prev-cover" src="https://s3.uuu.ovh/imgs/2022/11/26/6d2940a81509df0b.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">(2022.8.13)循环与打印</div></div></a></div><div class="next-post pull-right"><a href="/2021/10/20/Java-3/"><img class="next-cover" src="https://s3.uuu.ovh/imgs/2022/11/26/c91490bedb8a34c9.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">面试题整理-JavaSE-3</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/gourailogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">RoastCarrot</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/RoastCarrot"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/RoastCarrot" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:532905951@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcome to the jungle</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-36-%E9%81%87%E5%88%B0%E8%BF%87%E5%BC%82%E5%B8%B8%E5%90%97%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">1.36 遇到过异常吗，如何处理？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-37-%E8%AF%B4%E4%B8%80%E8%AF%B4Java%E7%9A%84%E5%BC%82%E5%B8%B8%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">1.37 说一说Java的异常机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-38-%E8%AF%B7%E4%BB%8B%E7%BB%8DJava%E7%9A%84%E5%BC%82%E5%B8%B8%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.</span> <span class="toc-text">1.38 请介绍Java的异常接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-39-finally%E6%98%AF%E6%97%A0%E6%9D%A1%E4%BB%B6%E6%89%A7%E8%A1%8C%E7%9A%84%E5%90%97%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">1.39 finally是无条件执行的吗？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-40-%E5%9C%A8finally%E4%B8%ADreturn%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">5.</span> <span class="toc-text">1.40 在finally中return会发生什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-41-%E8%AF%B4%E4%B8%80%E8%AF%B4%E4%BD%A0%E5%AF%B9static%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">6.</span> <span class="toc-text">1.41 说一说你对static关键字的理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-42-static%E4%BF%AE%E9%A5%B0%E7%9A%84%E7%B1%BB%E8%83%BD%E4%B8%8D%E8%83%BD%E8%A2%AB%E7%BB%A7%E6%89%BF%EF%BC%9F"><span class="toc-number">7.</span> <span class="toc-text">1.42 static修饰的类能不能被继承？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-43-static%E5%92%8Cfinal%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">1.43 static和final有什么区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-44-%E8%AF%B4%E4%B8%80%E8%AF%B4%E4%BD%A0%E5%AF%B9%E6%B3%9B%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">9.</span> <span class="toc-text">1.44 说一说你对泛型的理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-45-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4"><span class="toc-number">10.</span> <span class="toc-text">1.45 介绍一下泛型擦除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-46-List-lt-super-T-gt-%E5%92%8CList-lt-extends-T-gt-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">11.</span> <span class="toc-text">1.46 List&lt;? super T&gt;和List&lt;? extends T&gt;有什么区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-47-%E8%AF%B4%E4%B8%80%E8%AF%B4%E4%BD%A0%E5%AF%B9Java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">12.</span> <span class="toc-text">1.47 说一说你对Java反射机制的理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-48-Java%E5%8F%8D%E5%B0%84%E5%9C%A8%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="toc-number">13.</span> <span class="toc-text">1.48 Java反射在实际项目中有哪些应用场景？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-49-%E8%AF%B4%E4%B8%80%E8%AF%B4Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">14.</span> <span class="toc-text">1.49 说一说Java的四种引用方式</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/01/mybatis%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8/" title="第一个Mybatis程序">第一个Mybatis程序</a><time datetime="2022-10-01T12:00:00.000Z" title="发表于 2022-10-01 20:00:00">2022-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/01/mybatis-%E7%AE%80%E4%BB%8B/" title="Mybatis-简介">Mybatis-简介</a><time datetime="2022-10-01T11:00:00.000Z" title="发表于 2022-10-01 19:00:00">2022-10-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/09/23/%5B2022.11.23%5DServlet/" title="(2022.9.23)Servlet">(2022.9.23)Servlet</a><time datetime="2022-09-23T12:00:00.000Z" title="发表于 2022-09-23 20:00:00">2022-09-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/09/09/%5B2022.11.9%5D%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98/" title="(2022.9.9)进程的并发问题">(2022.9.9)进程的并发问题</a><time datetime="2022-09-09T12:00:00.000Z" title="发表于 2022-09-09 20:00:00">2022-09-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/09/07/%5B2022.11.7%5D%E7%BA%BF%E7%A8%8B/" title="(2022.9.7)线程">(2022.9.7)线程</a><time datetime="2022-09-07T12:00:00.000Z" title="发表于 2022-09-07 20:00:00">2022-09-07</time></div></div></div></div></div></div></main><footer id="footer" style="background: rgba(255,255,255,0)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By RoastCarrot</div><div class="footer_custom_text">Light our darkest hour.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div>-<div class="aplayer no-destroy" data-id="7763727989" data-server="netease" data-type="playlist" data-fixed="true" data-lrcType="-1" data-autoplay="false"> </div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="叮~,咚~,锵~" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://s3.uuu.ovh/imgs/2022/11/23/45463d45d3ce8a56.png);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/Java面试题/&quot;);" href="javascript:void(0);">Java面试题</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr">JavaSE</span></li><li class="categoryBar-list-item" style="background:url(https://s3.uuu.ovh/imgs/2022/11/23/b07c465a4ff7dd99.jpg);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/JavaSE/&quot;);" href="javascript:void(0);">JavaSE</a><span class="categoryBar-list-count">23</span><span class="categoryBar-list-descr">JavaWeb</span></li><li class="categoryBar-list-item" style="background:url(https://s3.uuu.ovh/imgs/2022/11/27/89081e6847c624b3.png);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/JavaWeb/&quot;);" href="javascript:void(0);">JavaWeb</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr">Java面试题</span></li><li class="categoryBar-list-item" style="background:url(https://s3.uuu.ovh/imgs/2022/11/23/834eab8190132be6.jpg);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/建设中/&quot;);" href="javascript:void(0);">建设中</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr">建设中</span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><script data-pjax>
+  function butterfly_clock_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="/img/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_injector_config();
+  }
+  </script><script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script data-pjax src="https://unpkg.zhimg.com/hexo-butterfly-clock/lib/clock.min.js"></script><!-- hexo injector body_end end --></body></html>
